@@ -1,11 +1,16 @@
 Observed objects classification based on fMRI data
 
-**Abstract** 
+####**Abstract** 
+
+Neuroimaging is one of the fields that related to big data for some reasons. First of all, with the development of 
+MRI scanner, now we can capture images of brain in ultra-high resolution. But this development comes with the issue 
+that MRI data become big data that is difficult to be stored and processed by personal computers. In the other hand,
+MRI data can be analyzed to structure human brain, research brain functions and activities using different techniques
+including machine learning algorithms. In this project, we present a classification problem using fMRI images and 
+neural network. We also analyze the performance of the algorithms in terms resource usage.
 
 
-
-
-**I. Introduction**
+####**I. Introduction**
 
 Neuroimaging is a relatively new field emerged with the development in neuroscience, psychology and computer science 
 which works with brain images to capture and analyze the structures and functions in parts of nervous system.
@@ -27,4 +32,4 @@ on used data set  in terms of used resources such as CPU and memory in different
 to model training,  validation and testing. By doing this analysis, our expectation is to have an idea of 
 where could be the bottleneck, what could be improved to optimize resource usage.
 
-**II. Materials and methods**. 
+####**II. Materials and methods**. 
