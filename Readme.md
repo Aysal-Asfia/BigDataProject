@@ -33,3 +33,35 @@ to model training,  validation and testing. By doing this analysis, our expectat
 where could be the bottleneck, what could be improved to optimize resource usage.
 
 ####**II. Materials and methods**. 
+
+**1.  Materials**
+    
+**1.1 Data set**
+
+The data set used is fMRI data set from .............
+
+The training data is split into 6 files, 5 image files and 1 label file. The size of each file is 1.94 GB.
+
+**_descibe data here_**
+
+**1.2 Technologies**
+
+In this project, we use **_tensorflow_**, **_keras_** for artificial neural network,
+ **_sklearn_** for data preprocessing and scoring. 
+ 
+ **_any reasons to choose these libraries?_**
+
+**2. Method**
+
+The algorithm we choose for this problem is LSTM
+
+-   **_reason to choose LSTM?_**
+
+Since we want to analyze the resource usage when the model is trained, we do not pre-process the data 
+and train our model with the original data. By doing this, the training will be compute-intensive as well as 
+memory consuming, and the impact of model and hyperparameter choices can be more visible. This may make the bottlenecks 
+to be identified and the improved more easily.
+
+When it comes to resource profiling, we focus on CPU time, memory usage and cache used if possible as these usually 
+are the possible bottlenecks to be optimized.
+
