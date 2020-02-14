@@ -40,9 +40,12 @@ where could be the bottleneck, what could be improved to optimize resource usage
 
 The data set used is fMRI data set from .............
 
-The training data is split into 6 files, 5 image files and 1 label file. The size of each file is 1.94 GB.
+The training data, which is from 2047 subjects recorded in 10 seconds, is split into 6 files, 5 image files 
+and 1 label file, 1.94 GB each file.
 
 **_descibe data here_**
+
+Data from all input files will be stacked together and split into training set and test set.
 
 **1.2 Technologies**
 
@@ -53,9 +56,15 @@ In this project, we use **_tensorflow_**, **_keras_** for artificial neural netw
 
 **2. Method**
 
-The algorithm we choose for this problem is LSTM
+For this classification problem, the algorithm that we choose is LSTM. The model is trained with batch size of 50 
+and Adam as the optimizer. 
 
 -   **_reason to choose LSTM?_**
+
+After the model is trained, we use some metrics to measure the performance of out model. Apart from accuracy, 
+we will use ROC curve and confusion matrix to evaluate since this is a multiclass classification problem and 
+the classes are imbalance.
+
 
 Since we want to analyze the resource usage when the model is trained, we do not pre-process the data 
 and train our model with the original data. By doing this, the training will be compute-intensive as well as 
