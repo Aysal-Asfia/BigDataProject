@@ -1,13 +1,20 @@
-Bank Customer Churn Prediction
+Objects classification on fMRI data
 
-In this project, we want to prevent bank customer churn.
+**Abstract** 
 
-These days, one of the significant problems of bank systems which they tackle with, is missing their customers day by day. In order to solve this issue, banks need to attract more customers than retaining ones, and try to preserve their previous customers as well.
-As banks datasets considered as a Big dataset, in this project we want to have a prediction on customer churn. 
+Neuroimaging is a relatively new field emerged with the development in neuroscience, psychology and computer science 
+which works with brain images to capture and analyze the structures and functions in parts of nervous system.
+Thanks for the development of MRI techniques, compute and storage capability of modern computers as well as 
+the efficiency machine learning algorithms, nowadays we can capture human brain images in high resolution 
+and use this data to analyze the structure of human brain. Furthermore, using machine learning algorithms, 
+now we are able to investigate how brain functions in certain activities. 
 
-We aim to accomplish the following for this study:
-1.	Recognizing which factors will effect on customer churn
-2.	Predicting a model for:
-•	Classifying if a customer will churn or not 
-•	Based on customer performance, effort to prevent their churn
+In this project, we apply artificial neural network in observed objects classification 
+using fMRI data set. In addition, since the neuroimaging data is considered big data, we also analyze 
+the performance in terms of used resources such as CPU and memory to have an idea of where is the bottleneck, 
+what could be improved to optimize resource usage.
 
+
+**I. Introduction**
+
+**II. Materials and methods**. 
