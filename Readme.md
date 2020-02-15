@@ -36,35 +36,26 @@ where could be the bottleneck, what could be improved to optimize resource usage
 
 **1.  Materials**
     
-**1.1 Data set**
+**1.1 Dataset**
 
-The data set used is fMRI data set from .............
-
-The training data, which is from 2047 subjects recorded in 10 seconds, is split into 6 files, 5 image files 
+The dataset used is fMRI images from BOLD5000, which is a large-scale, slow event-related fMRI dataset.
+The training data, which consists of 2047 samples recorded in 10 seconds, is split into 6 files, 5 image files 
 and 1 label file, 1.94 GB each file.
-
-**_descibe data here_**
-
 Data from all input files will be stacked together and split into training set and test set.
 
 **1.2 Technologies**
 
-In this project, we use **_tensorflow_**, **_keras_** for artificial neural network,
- **_sklearn_** for data preprocessing and scoring. 
+In this project, we use **_tensorflow_**, **_keras_**, which is widely used for deep learning,
+and **_sklearn_** for data preprocessing and scoring. 
  
- **_any reasons to choose these libraries?_**
-
 **2. Method**
 
-For this classification problem, the algorithm that we choose is LSTM. The model is trained with batch size of 50 
-and Adam as the optimizer. 
-
--   **_reason to choose LSTM?_**
-
+For this classification problem, since the fMRI images are in time series and are related,
+we choose LSTM as our classifier. 
+The model is trained with batch size of 50 and Adam as the optimizer. 
 After the model is trained, we use some metrics to measure the performance of out model. Apart from accuracy, 
 we will use ROC curve and confusion matrix to evaluate since this is a multiclass classification problem and 
 the classes are imbalance.
-
 
 Since we want to analyze the resource usage when the model is trained, we do not pre-process the data 
 and train our model with the original data. By doing this, the training will be compute-intensive as well as 
