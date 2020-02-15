@@ -46,7 +46,7 @@ Data from all input files will be stacked together and split into training set a
 #### **1.2 Technologies**
 
 In this project, we use **_tensorflow_**, **_keras_**, which is widely used for deep learning,
-and **_sklearn_** for data preprocessing and scoring. 
+and **_sklearn_** for data preprocessing and performance evaluation. 
  
 #### **2. Method**
 
