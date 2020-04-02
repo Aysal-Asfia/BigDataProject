@@ -13,7 +13,7 @@ if len(args) >= 3:
     steps = int(args[2])
 else:
     roi = 1
-    steps = 5
+    steps = 6
 
 print("\nRun pipeline with ROI #%d and %d time steps.\n" % (roi, steps))
 
