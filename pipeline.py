@@ -5,7 +5,7 @@ from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
 
 from preprocess import process_data
-from train_test import train, evaluate
+from train_test import train, evaluate, save_model, load_model
 
 args = sys.argv
 if len(args) >= 3:
@@ -26,7 +26,7 @@ enc = preprocessing.OneHotEncoder(categories='auto')
 enc.fit(Y_Data)
 Y_Data = enc.transform(Y_Data).toarray()
 
-X_train, X_test, Y_train, Y_test = train_test_split(X_Data, Y_Data, test_size=0.1)
+X_train, X_test, Y_train, Y_test = train_test_split(X_Data, Y_Data, test_size=0.2)
 
 processing_end = time.time()
 print("Preprocessed data in: %.2f sec\n" % (processing_end - processing_start))
@@ -35,7 +35,8 @@ print("Preprocessed data in: %.2f sec\n" % (processing_end - processing_start))
 train_start = time.time()
 
 model = train(X_train, Y_train)
-# save_model(model, "model.json")
+# save_model(model, "model_roi1_6steps.json")
+# model = load_model("model_roi1_5steps.json")
 evaluate(model, X_test, Y_test)
 
 train_end = time.time()
