@@ -4,7 +4,6 @@ from scipy.io import loadmat
 
 image_label_file = "ROIs/BOLD5000_imagenet_superlabels.pkl"
 keys_to_remove = ['__header__', '__version__', '__globals__']
-labels = pd.read_pickle(image_label_file)
 
 
 def final_concat(CSI_TR, index_pos_list):
@@ -24,6 +23,7 @@ def process_data(section_number, no_steps=5):
 
     images = open("ROIs/stim_lists/CSI0%d_stim_lists.txt" % section_number, "r")
     d_images = {"image": np.array([[line.strip('\n')] for line in images])}
+    labels = pd.read_pickle(image_label_file)
 
     CSI1_TR_list = [CSI_TR1, CSI_TR2, CSI_TR3, CSI_TR4, CSI_TR5, CSI_TR34][:steps]
     # new_CSI1_TR_list = []

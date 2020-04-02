@@ -1,31 +1,17 @@
-import matplotlib.pyplot as plt
 import numpy as np
 from keras import optimizers
 from keras.callbacks import ModelCheckpoint
 from keras.layers import Dense, LSTM
 from keras.models import Sequential, model_from_json
-import sklearn
-from sklearn import preprocessing
 from sklearn.metrics import roc_auc_score, roc_curve, auc, confusion_matrix, classification_report
-from sklearn.model_selection import train_test_split
-
-from preprocess import process_data
-
-X_Data, Y_Data = process_data(1, 5)
-
-enc = preprocessing.OneHotEncoder(categories='auto')
-enc.fit(Y_Data)
-Y_Data = enc.transform(Y_Data).toarray()
-
-X_train, X_test, Y_train, Y_test = train_test_split(X_Data, Y_Data, test_size=0.1)
 
 
-def create_lstm_model():
+def create_lstm_model(no_steps, no_features):
     model = Sequential()
 
     # input_data shape = (num_trials, timesteps, input_dim)
     ## activation function:  tanh , relu,...
-    model.add(LSTM(500, input_shape=(5, 1685), return_sequences=True, activation='relu', dropout=0.7))
+    model.add(LSTM(500, input_shape=(no_steps, no_features), return_sequences=True, activation='relu', dropout=0.7))
     # returns a sequence of vectors of dimension 60
     model.add(LSTM(400, activation='tanh', dropout=0.5, return_sequences=True))
     # returns a sequence of vectors of dimension 60
@@ -38,12 +24,14 @@ def create_lstm_model():
     return model
 
 
-def train(x_train, y_train):
+def train(X_train, Y_train):
+
+    _, no_steps, no_features = X_train.shape
     # training:
     # out_data shape = (num_trials, num_classes)
     batch_size = 50  # 10,20,....
     epochs = 50  # 20,30,...
-    model = create_lstm_model()
+    model = create_lstm_model(no_steps, no_features)
 
     ## monitor accuracy and save the best models; it seems not much improve after 33 epochs
     filepath = "./weights-improvement-{epoch:02d}-{val_accuracy:.2f}.hdf5"
@@ -56,14 +44,16 @@ def train(x_train, y_train):
     return model
 
 
-def evaluate(model):
-    Y_predict = model.predict(X_test)
+def evaluate(model, X_test, Y_test):
 
-    scores = model.evaluate(X_test, Y_test, verbose=0)
-    print("%s: %.2f%%" % (model.metrics_names[1], scores[1] * 100))
+    # Accuracy
+    # scores = model.evaluate(X_test, Y_test, verbose=0)
+    # print("%s: %.2f%%" % (model.metrics_names[1], scores[1] * 100))
     # accuracy = sklearn.metrics.accuracy_score(Y_test, Y_predict)
     # print("%s: %.2f%%" % (model.metrics_names[1], accuracy * 100))
 
+    # ROC curve
+    Y_predict = model.predict(X_test)
     roc_auc_score(Y_test, Y_predict)
 
     fpr = dict()
@@ -74,24 +64,24 @@ def evaluate(model):
         roc_auc[i] = auc(fpr[i], tpr[i])
 
     # Compute micro-average ROC curve and ROC area
-    fpr["micro"], tpr["micro"], _ = roc_curve(Y_test.ravel(), Y_predict.ravel())
-    roc_auc["micro"] = auc(fpr["micro"], tpr["micro"])
-    plt.figure()
-    lw = 2
-    plt.plot(fpr[2], tpr[2], color='darkorange',
-             lw=lw, label='ROC curve (area = %0.2f)' % roc_auc[2])
-    plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
-    plt.xlim([0.0, 1.0])
-    plt.ylim([0.0, 1.05])
-    plt.xlabel('False Positive Rate')
-    plt.ylabel('True Positive Rate')
-    plt.title('Receiver operating characteristic example')
-    plt.legend(loc="lower right")
-    plt.show()
+    # fpr["micro"], tpr["micro"], _ = roc_curve(Y_test.ravel(), Y_predict.ravel())
+    # roc_auc["micro"] = auc(fpr["micro"], tpr["micro"])
+    # plt.figure()
+    # lw = 2
+    # plt.plot(fpr[2], tpr[2], color='darkorange',
+    #          lw=lw, label='ROC curve (area = %0.2f)' % roc_auc[2])
+    # plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
+    # plt.xlim([0.0, 1.0])
+    # plt.ylim([0.0, 1.05])
+    # plt.xlabel('False Positive Rate')
+    # plt.ylabel('True Positive Rate')
+    # plt.title('Receiver operating characteristic example')
+    # plt.legend(loc="lower right")
+    # plt.show()
 
     M = model.predict_classes(X_test)
 
-    ytt = np.zeros((205, 1))
+    ytt = np.zeros((192, 1))
     for i, val in enumerate(Y_test):
         val = val.tolist()
         ytt[i] = int(val.index(1.0))
@@ -102,13 +92,13 @@ def evaluate(model):
     matrix = confusion_matrix(ytt, M)
     print(matrix)
 
-    plt.imshow(matrix, interpolation=None, cmap='binary')
-    plt.title('confusion matrix')
-    plt.colorbar()
-    plt.title('confusion_matrix')
-    plt.ylabel('True label')
-    plt.xlabel('Predicted label')
-    plt.show()
+    # plt.imshow(matrix, interpolation=None, cmap='binary')
+    # plt.title('confusion matrix')
+    # plt.colorbar()
+    # plt.title('confusion_matrix')
+    # plt.ylabel('True label')
+    # plt.xlabel('Predicted label')
+    # plt.show()
 
 
 def save_model(model, model_file):
@@ -134,5 +124,5 @@ def load_model(model_file):
 
 # lstm_model = train(X_train, Y_train)
 # save_model(lstm_model, "model.json")
-lstm_model = load_model("model.json")
-evaluate(lstm_model)
+# lstm_model = load_model("model.json")
+# evaluate(lstm_model)
