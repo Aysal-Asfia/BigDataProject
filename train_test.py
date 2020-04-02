@@ -14,9 +14,9 @@ def create_lstm_model(no_steps, no_features):
     ## activation function:  tanh , relu,...
     model.add(LSTM(500, input_shape=(no_steps, no_features), return_sequences=True, activation='relu', dropout=0.2))
     # returns a sequence of vectors of dimension 60
-    model.add(LSTM(400, activation='tanh', dropout=0.2, return_sequences=True))
+    model.add(LSTM(250, activation='tanh', dropout=0.2, return_sequences=True))
     # returns a sequence of vectors of dimension 60
-    model.add(LSTM(300, activation='tanh', dropout=0.2))
+    model.add(LSTM(100, activation='tanh', dropout=0.2))
     # return a single vector of dimension 40
     model.add(Dense(5, activation="softmax"))  # number of classes 3, object categori,....
 
@@ -48,8 +48,8 @@ def train(X_train, Y_train):
 def evaluate(model, X_test, Y_test):
 
     # Accuracy
-    # scores = model.evaluate(X_test, Y_test, verbose=0)
-    # print("%s: %.2f%%" % (model.metrics_names[1], scores[1] * 100))
+    scores = model.evaluate(X_test, Y_test, verbose=0)
+    print("%s: %.2f%%" % (model.metrics_names[1], scores[1] * 100))
 
     # ROC curve
     Y_predict = model.predict(X_test)
@@ -63,20 +63,20 @@ def evaluate(model, X_test, Y_test):
         roc_auc[i] = auc(fpr[i], tpr[i])
 
     # Compute micro-average ROC curve and ROC area
-    # fpr["micro"], tpr["micro"], _ = roc_curve(Y_test.ravel(), Y_predict.ravel())
-    # roc_auc["micro"] = auc(fpr["micro"], tpr["micro"])
-    # plt.figure()
-    # lw = 2
-    # plt.plot(fpr[2], tpr[2], color='darkorange',
-    #          lw=lw, label='ROC curve (area = %0.2f)' % roc_auc[2])
-    # plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
-    # plt.xlim([0.0, 1.0])
-    # plt.ylim([0.0, 1.05])
-    # plt.xlabel('False Positive Rate')
-    # plt.ylabel('True Positive Rate')
-    # plt.title('ROC curve')
-    # plt.legend(loc="lower right")
-    # plt.show()
+    fpr["micro"], tpr["micro"], _ = roc_curve(Y_test.ravel(), Y_predict.ravel())
+    roc_auc["micro"] = auc(fpr["micro"], tpr["micro"])
+    plt.figure()
+    lw = 2
+    plt.plot(fpr[2], tpr[2], color='darkorange',
+             lw=lw, label='ROC curve (area = %0.2f)' % roc_auc[2])
+    plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
+    plt.xlim([0.0, 1.0])
+    plt.ylim([0.0, 1.05])
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.title('ROC curve')
+    plt.legend(loc="lower right")
+    plt.show()
 
     M = model.predict_classes(X_test)
 
@@ -86,17 +86,19 @@ def evaluate(model, X_test, Y_test):
         ytt[i] = int(val.index(1.0))
 
     report = classification_report(ytt, M)
+    print("classification report")
     print(report)
 
     matrix = confusion_matrix(ytt, M)
+    print("confusion matrix")
     print(matrix)
 
-    # plt.imshow(matrix, interpolation=None, cmap='binary')
-    # plt.colorbar()
-    # plt.title('confusion matrix')
-    # plt.ylabel('True label')
-    # plt.xlabel('Predicted label')
-    # plt.show()
+    plt.imshow(matrix, interpolation=None, cmap='binary')
+    plt.colorbar()
+    plt.title('confusion matrix')
+    plt.ylabel('True label')
+    plt.xlabel('Predicted label')
+    plt.show()
 
 
 def save_model(model, model_file):
