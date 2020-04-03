@@ -3,9 +3,9 @@ import json
 import matplotlib.pyplot as plt
 import numpy as np
 
-timestamps_file = "log/roi1_6steps/timestamps.json"
-mem_prof_file   = "log/roi1_6steps/atop.log"
-collectl_file   = "log/roi1_6steps/collectl-simgrid-vm-20200402.dsk.csv"
+timestamps_file = "log/roi1/5steps/timestamps.json"
+mem_prof_file   = "log/roi1/5steps/atop.log"
+collectl_file   = "log/roi1/5steps/collectl-simgrid-vm-20200402.dsk.csv"
 
 f = open(mem_prof_file)
 lines = f.readlines()
@@ -79,7 +79,7 @@ def timestamp_plot(fig, time_stamps):
 
 def mem_plot(fig, readonly=False):
     fig.minorticks_on()
-    fig.set_title("memory profiling (ROI #1, no_steps = 6)")
+    fig.set_title("memory profiling (ROI #1, no_steps = 5)")
     timestamp_plot(fig, timestamps)
 
     # app_cache = list(np.array(app_mem) + np.array(cache_used))
@@ -125,7 +125,7 @@ ax1 = figure.add_subplot(2, 1, 1)
 ax2 = figure.add_subplot(2, 1, 2, sharex=ax1)
 
 ax1.set_ylim(top=16000, bottom=-1000)
-ax1.set_xlim(left=-10, right=350)
+ax1.set_xlim(left=-10, right=300)
 mem_plot(ax1)
 
 collectl_plot(ax2)
