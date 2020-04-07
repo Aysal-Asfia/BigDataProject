@@ -137,7 +137,23 @@ _we will use ROC curve and confusion matrix to evaluate since this is a multi-cl
 the classes are imbalance._
 
 _**Table 1. Classification measurements report**_
-......
+
+| index | precision | recall | f1_score | support |
+|-------|-----------|--------|----------|---------|
+| 1     | 0.33      | 0.10   | 0.15     | 20      |
+| 2     | 0.00      | 0.00   | 0.00     | 5       |
+| 3     | 0.00      | 0.00   | 0.00     | 142     |
+| 4     | 0.74      | 0.84   | 0.79     | 214     |
+
+_**Table 1. Confussion Matrix**_
+
+|   |   |     |   |     |
+|---|---|-----|---|-----|
+| 2 | 0 | 4   | 0 | 14  |
+| 0 | 0 | 0   | 0 | 5   |
+| 1 | 0 | 100 | 1 | 40  |
+| 0 | 0 | 0   | 0 | 3   |
+| 3 | 0 | 31  | 1 | 179 |
 
 Since we want to analyze the resource usage when the model is trained, we do not pre-process the data and train 
 our model with the original data. By doing this, the training will be compute-intensive as well as memory consuming, 
