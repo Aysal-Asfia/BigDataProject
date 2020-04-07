@@ -51,13 +51,17 @@ what could be improved to optimize resource usage.
 For  this  work,  we  used  BOLD5000  repository  [2],  a  human  functional  MRI(fMRI) study. This repository includes 
 almost 5,000 distinct images depicting real-world scenes as brain stimuli. However, from this repository we focused only 
 on ImageNet dataset, providing super-categories labels.  In this fMRI dataset, 4 participants were scanned in a 
-slow-evented related design with 4,916 unique scenes. The fMRI data was collected over 16 sessions, 15 of which were 
-task-related sessions, plus an additional session for acquiring high resolution anatomical scans. Images were presented 
+slow-evented related design with 4,916 unique scenes. 
+
+The fMRI data was collected over 16 sessions, 15 of which were task-related sessions, plus an additional session for 
+acquiring high resolution anatomical scans. Images were presented 
 for 1 second, with 9 seconds of fixation between trials.  Participants were asked to judge whether they liked, disliked, 
 or were neutral about the images.  As aforementioned, the images in ImageNet dataset are labeled with ImageNet 
 super categories. These super categories were created by using the WordNet hierarchy. From 61 final WordNet categories, 
 images are labeled as ”Living Animate”, “Living Inanimate”, “Objects”, “Food” or “Geography”. An example of label 
-mapping is “Dog” to “Living Animate” and“Vehicle” to “Objects”. In this work, features of fMRI data were represented 
+mapping is “Dog” to “Living Animate” and“Vehicle” to “Objects”. 
+
+In this work, features of fMRI data were represented 
 by using ROI regions including: LHPPA’, ’RHLOC’, ’LHLOC’, ’RHEarlyVis’, ’RHRSC’, ’RHOPA’,’RHPPA’, ’LHEarlyVis’, ’LHRSC’, 
 ’LHOPA’. The data of the ROIs were ex-tracted across the time-course of the trial presentation 
 (TR1 = 0−2s,TR2 =32−4s,TR3=4−6s,TR4=6−8s,TR5=8−10s). In this dataset, for the first subject, the number of experiments 
@@ -70,15 +74,19 @@ In this project, we use **_tensorflow_**, **_keras_**, which is widely used for 
 and **_sklearn_** for data preprocessing and performance evaluation. 
  
 
-### ***1.3 LSTM classification*
+### **1.3 LSTM classification**
+
 For the problem of fMRI images classification, type of times series based data classification, we choose 
 Long Short Term Memory (LSTM) as our classifier. LSTM is based on recurrent neural network (RNN), which is a 
-deep learning algorithm. In the following, we present a brief review on LSTM networks. The main motivation of applying 
+deep learning algorithm. In the following, we present a brief review on LSTM networks. 
+
+The main motivation of applying 
 RNNs is extracting higher-dimensional dependencies from sequential data. The main characteristic of RNN units is that 
 they have connections not only between the subsequent layers,but also among themselves to capture information from 
 previous inputs. Even though traditional RNNs can easily learn short-term dependencies; however,they have difficulties 
 in learning long-term dynamics due to the vanishing and exploding gradient problems. The main advantage of LSTM is 
 addressing the vanishing and exploding gradient problems by learning both long- and short-term dependencies [4].
+
 **_I am not sure if we should describe LSTM cell with details or we should remove it*******_** 
 An LSTM network is composed of cells, whose outputsevolvethrough the network based on past memory content. 
 The cells have a common cell state, keeping long-term dependencies along the entire LSTM chain of cells. The following 
