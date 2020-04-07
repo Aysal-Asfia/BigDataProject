@@ -1,6 +1,6 @@
-## Observed objects classification based on fMRI data
+# Observed objects classification based on fMRI data
 
-### **Abstract** 
+## **Abstract** 
 
 Functional magnetic resonance imaging (fMRI) is one of the most widely used tools to  study the  neural underpinnings of  
 human cognition. In this  project,we apply deep learning algorithms to classify objects observed by subjects 
@@ -13,7 +13,7 @@ classification.  We profile the performance of the algorithm on used data set in
 CPU and memory in different steps, from data pre-processing to model training, validation and testing.
 
 
-### **I. Introduction**
+## **I. Introduction**
 
 Neuroimaging is a relatively new field emerged with the development in neuroscience, psychology and computer science 
 which works with brain images to capture and analyze the structures and functions in parts of nervous system. 
@@ -42,11 +42,11 @@ in terms of used resources such as CPU and memory in different steps, from data 
 validation and testing.  By doing this analysis, our expectation is to have an idea of where could be the bottleneck, 
 what could be improved to optimize resource usage.
 
-### **II. Materials and methods**. 
+## **II. Materials and methods**. 
 
-#### **1.  Materials**
+### **1.  Materials**
     
-#### **1.1 Dataset**
+### **1.1 Dataset**
 
 For  this  work,  we  used  BOLD5000  repository  [2],  a  human  functional  MRI(fMRI) study. This repository includes 
 almost 5,000 distinct images depicting real-world scenes as brain stimuli. However, from this repository we focused only 
@@ -64,13 +64,13 @@ by using ROI regions including: LHPPA’, ’RHLOC’, ’LHLOC’, ’RHEarlyVi
 and features were 1916 and 1685, respectively. We have the same number of experiments for the other subjects. 
 However, the number of features for other three subjects were 2270, 3104, 2787 respectively.
 
-#### **1.2 Technologies**
+### **1.2 Technologies**
 
 In this project, we use **_tensorflow_**, **_keras_**, which is widely used for deep learning,
 and **_sklearn_** for data preprocessing and performance evaluation. 
  
 
-#### ***1.3 LSTM classification*
+### ***1.3 LSTM classification*
 For the problem of fMRI images classification, type of times series based data classification, we choose 
 Long Short Term Memory (LSTM) as our classifier. LSTM is based on recurrent neural network (RNN), which is a 
 deep learning algorithm. In the following, we present a brief review on LSTM networks. The main motivation of applying 
@@ -101,7 +101,7 @@ In our work, the proposed network includes five LSTM layers and one dense layer.
 activation function. But we applied softmax activation function in the last dense layer to predict the probability 
 of each class. We set the dropout rate as 0.2 in all LSTM layers.
 
-#### **2. Method**
+### **2. Method**
 
 For this classification problem, since the fMRI images are in time series and are related,
 we choose LSTM as our classifier. 
@@ -118,7 +118,7 @@ to be identified and the improved more easily.
 When it comes to resource profiling, we focus on CPU time, memory usage and cache used if possible as these usually 
 are the possible bottlenecks to be optimized.
 
-#### **3. Result**
+### **3. Result**
 
 The model is trained with batch size of 50 applying Adam optimizer. After the model is trained, we use some metrics 
 to measure the performance of our model. Table 1 shows the performance of model for test dataset in term of several 
@@ -139,11 +139,11 @@ and the improved more easily.
 When it comes to resource profiling, we focus on CPU time, memory usage and cache used if possible as these usually are 
 the possible bottlenecks to be optimized.
 
-#### **4. Discussion**
+### **4. Discussion**
 
 [Add discussion here, cut other sessions off]
 
-### **References**
+## **References**
 
 **[1]**  Roland N Boubela, Klaudius Kalcher, Wolfgang Huf, Christian Naˇsel, andEwald Moser.  Big data approaches for the analysis of large-scale fmri datausing  apache  spark  and  gpu  processing:  a  demonstration  on  resting-statefmri data from the human connectome project.Frontiers  in  neuroscience,9:492, 2016.
 
