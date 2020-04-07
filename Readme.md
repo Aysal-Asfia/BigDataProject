@@ -145,7 +145,7 @@ _**Table 1. Classification measurements report**_
 | 3     | 0.00      | 0.00   | 0.00     | 142     |
 | 4     | 0.74      | 0.84   | 0.79     | 214     |
 
-_**Table 1. Confussion Matrix**_
+_**Table 2. Confussion Matrix**_
 
 |   |   |     |   |     |
 |---|---|-----|---|-----|
