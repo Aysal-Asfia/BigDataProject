@@ -1,134 +1,139 @@
-## Observed objects classification based on fMRI data
+# Report
 
-### **Abstract** 
+## Sana Ahmadi
 
-Neuroimaging is one of the fields that related to big data for some reasons. First of all, with the development of 
-MRI scanner, now we can capture images of brain in ultra-high resolution. But this development comes with the issue 
-that MRI data become big data that is difficult to be stored and processed by personal computers. In the other hand,
-MRI data can be analyzed to structure human brain, research brain functions and activities using different techniques
-including machine learning algorithms. In this project, we present a classification problem using fMRI## Observed objects classification based on fMRI data
+## April 2020
 
-### **Abstract** 
+## 1 Abstract
 
-Neuroimaging is one of the fields that related to big data for some reasons. First of all, with the development of 
-MRI scanner, now we can capture images of brain in ultra-high resolution. But this development comes with the issue 
-that MRI data become big data that is difficult to be stored and processed by personal computers. In the other hand,
-MRI data can be analyzed to structure human brain, research brain functions and activities using different techniques
-including machine learning algorithms. In this project, we present a classification problem using fMRI images and 
-neural network. We also analyze the performance of the algorithms in terms resource usage.
+Neuroimaging is one of the fields that related to big data for some reasons. First
+of all, with the development of MRI scanner, now we can capture images of brain
+in ultra-high resolution. But this development comes with the issue that MRI
+data become big data that is difficult to be stored and processed by personal
+computers. In the other hand, MRI data can be analyzed to structure human
+brain, research brain functions and activities using different techniques including
+machine learning algorithms. In this project, we present a classification problem
+using fMRI images and neural network. We also analyze the performance of the
+algorithms in terms resource usage.
 
+## 2 Introduction
 
-### **I. Introduction**
+Neuroimaging is a relatively new field emerged with the development in neu-
+roscience, psychology and computer science which works with brain images to
+capture and analyze the structures and functions in parts of nervous system.
+Nowadays, due to the excellent resolution of the Electroencephalogram (EEG),
+the images containing visual objects can be effectively recognized using specific
+patterns derived from EEG signals that are recorded when images are displayed
+on screen in front of the subjects [4]. In this project, we apply deep learning
+algorithms to classify objects observed by subjects using fMRI data. Subjects
+involved in the experiments were shown different images of static objects as well
+as animated images. The fMRI data of their brains when they were looking at
+the images was recorded in time steps. This is the input for our classification
+algorithm.
 
-Neuroimaging is a relatively new field emerged with the development in neuroscience, psychology and computer science 
-which works with brain images to capture and analyze the structures and functions in parts of nervous system.
-Thanks for the development of MRI techniques, compute and storage capability of modern computers as well as 
-the efficiency machine learning algorithms, nowadays we can capture human brain images in high resolution, 
-and use this data to analyze the structure of human brain. When it comes to computer science, using 
-machine learning algorithms, now we are able to investigate how brain functions in certain activities. 
-
-In this project, we apply deep learning algorithms to classify objects observed by subjects using fMRI data. 
-Subjects involved in the experiments were shown different images of static objects as well as animated images. 
-The fMRI data of their brains when they were looking at the images was recorded in time steps.
-This is the input for our classification algorithm.
-
-Since the neuroimaging data is considered big data, in many applications, 
-the problems that neuroscientists as well as computer scientists are tackling with are not only which algorithms 
-to apply, what is the best configuration for the algorithms, but also the problems in resource optimization, 
-reproducibility and fault-tolerance.  Thus, in this project, we also profile the performance of the algorithm 
-on used data set  in terms of used resources such as CPU and memory in different steps, from data pre-processing 
-to model training,  validation and testing. By doing this analysis, our expectation is to have an idea of 
-where could be the bottleneck, what could be improved to optimize resource usage.
-
-### **II. Materials and methods**. 
-
-#### **1.  Materials**
-    
-#### **1.1 Dataset**
-
-The dataset used is fMRI images from BOLD5000, which is a large-scale, slow event-related fMRI dataset.
-The training data, which consists of 2047 samples recorded in 10 seconds, is split into 6 files, 5 image files 
-and 1 label file, 1.94 GB each file.
-Data from all input files will be stacked together and split into training set and test set.
-
-#### **1.2 Technologies**
-
-In this project, we use **_tensorflow_**, **_keras_**, which is widely used for deep learning,
-and **_sklearn_** for data preprocessing and performance evaluation. 
- 
-#### **2. Method**
-
-For this classification problem, since the fMRI images are in time series and are related,
-we choose LSTM as our classifier. 
-The model is trained with batch size of 50 and Adam as the optimizer. 
-After the model is trained, we use some metrics to measure the performance of out model. Apart from accuracy, 
-we will use ROC curve and confusion matrix to evaluate since this is a multiclass classification problem and 
-the classes are imbalance.
-
-Since we want to analyze the resource usage when the model is trained, we do not pre-process the data 
-and train our model with the original data. By doing this, the training will be compute-intensive as well as 
-memory consuming, and the impact of model and hyperparameter choices can be more visible. This may make the bottlenecks 
-to be identified and the improved more easily.
-
-When it comes to resource profiling, we focus on CPU time, memory usage and cache used if possible as these usually 
-are the possible bottlenecks to be optimized.
-
- images and 
-neural network. We also analyze the performance of the algorithms in terms resource usage.
+Nowadays, in the field of neuroimaging, increasing spatial and temporal res-
+olutions as well as larger sample sizes lead to a rapid increase in the amount of
+data that needs to be processed in a typical study [1]. For more clarification,
+based on paper [2], by 2015 the amount of acquired neuroimaging data alone,
+discounting header information and before more files are generated during data
+processing and statistical analysis, exceeded an average of 20GB per published
+research study. However, as the richness of brain data sets continues to grow
 
 
-### **I. Introduction**
+and the push to place it in accessible repositories mounts, there are many issues
+to be considered on how to handle the data, move it from place to place, how to
+store it, analyze it, and share it [2]. Because of that, in paper [2], the authors
+indicated it is safe to say that human neuroimaging is now, officially, a “big
+data” science.
 
-Neuroimaging is a relatively new field emerged with the development in neuroscience, psychology and computer science 
-which works with brain images to capture and analyze the structures and functions in parts of nervous system.
-Thanks for the development of MRI techniques, compute and storage capability of modern computers as well as 
-the efficiency machine learning algorithms, nowadays we can capture human brain images in high resolution, 
-and use this data to analyze the structure of human brain. When it comes to computer science, using 
-machine learning algorithms, now we are able to investigate how brain functions in certain activities. 
+Furthermore, in neuroimaging field in many applications, the problems that
+neuroscientists as well as computer scientists are tackling with are not only
+which algorithms to apply, what is the best configuration for the algorithms, but
+also the problems in resource optimization, reproducibility and fault-tolerance.
+Thus, in this project, we also profile the performance of the algorithm on used
+data set in terms of used resources such as CPU and memory in different steps,
+from data pre-processing to model training, validation and testing. By doing
+this analysis, our expectation is to have an idea of where could be the bottleneck,
+what could be improved to optimize resource usage.
 
-In this project, we apply deep learning algorithms to classify objects observed by subjects using fMRI data. 
-Subjects involved in the experiments were shown different images of static objects as well as animated images. 
-The fMRI data of their brains when they were looking at the images was recorded in time steps.
-This is the input for our classification algorithm.
+## 3 Applied Method-LSTM classification
 
-Since the neuroimaging data is considered big data, in many applications, 
-the problems that neuroscientists as well as computer scientists are tackling with are not only which algorithms 
-to apply, what is the best configuration for the algorithms, but also the problems in resource optimization, 
-reproducibility and fault-tolerance.  Thus, in this project, we also profile the performance of the algorithm 
-on used data set  in terms of used resources such as CPU and memory in different steps, from data pre-processing 
-to model training,  validation and testing. By doing this analysis, our expectation is to have an idea of 
-where could be the bottleneck, what could be improved to optimize resource usage.
+For this classification problem, since the fMRI images are in time series and are
+related, we choose Long Short-Term Memory (LSTM) as our classifier. LSTM
+is based on recurrent neural network (RNN), which is a deep learning algorithm.
+In the following subsection we describe the architecture of an LSTM cell in de-
+tails:
 
-### **II. Materials and methods**. 
+LSTM Network: The main motivation of applying RNNs for EGG classifica-
+tion is extracting higher-dimensional dependencies from sequential data such as
+EEG time-series. The main characteristic of RNN units is that they have con-
+nections not only between the subsequent layers, but also among themselves to
+capture information from previous inputs. Even though traditional RNNs can
+easily learn short-term dependencies; however, they have difficulties in learn-
+ing long-term dynamics due to the vanishing and exploding gradient problems.
+The main advantage of LSTM is addressing the vanishing and exploding gradi-
+ent problems by learning both long- and short-term dependencies [3].
 
-#### **1.  Materials**
-    
-#### **1.1 Dataset**
+In the followng, I will describe the archtecture of a LSTM cell in more de-
+tails: An LSTM network is composed of cells, whose outputsevolve through
+the network based on past memory content.The cells have a common cell state,
+keeping long-term dependencies along the entire LSTM chain of cells. The fol-
+lowing information is then controlled by the input gate (it) and forget gate (ft),
+thus allowing the network to decide whether to forget the previous state (Ct 1 )
+or update the current state(Ct) with new information. The output of each cell
+(hidden state) is controlled by an output gate (ot), allowing the cell to compute
+its output given the updated cell state [3]. Figure 1 illustrates an LSTM archi-
+tecture.
 
-The dataset used is fMRI images from BOLD5000, which is a large-scale, slow event-related fMRI dataset.
-The training data, which consists of 2047 samples recorded in 10 seconds, is split into 6 files, 5 image files 
-and 1 label file, 1.94 GB each file.
-Data from all input files will be stacked together and split into training set and test set.
 
-#### **1.2 Technologies**
+```
+Figure 1: An LSTM cell architecture
+```
+```
+The formulas describing an LSTM cell architecture arepresented as:
+```
+it=σ(Wi.[ht− 1 ,xt] +bi(1)
 
-In this project, we use **_tensorflow_**, **_keras_**, which is widely used for deep learning,
-and **_sklearn_** for data preprocessing and performance evaluation. 
- 
-#### **2. Method**
+ft=σ(Wf.[ht− 1 ,xt] +bf(2)
 
-For this classification problem, since the fMRI images are in time series and are related,
-we choose LSTM as our classifier. 
-The model is trained with batch size of 50 and Adam as the optimizer. 
-After the model is trained, we use some metrics to measure the performance of out model. Apart from accuracy, 
-we will use ROC curve and confusion matrix to evaluate since this is a multiclass classification problem and 
-the classes are imbalance.
+Ct=ft∗Ct− 1 +it∗tanh(Wc.[ht− 1 ,xt] +bc) (3)
 
-Since we want to analyze the resource usage when the model is trained, we do not pre-process the data 
-and train our model with the original data. By doing this, the training will be compute-intensive as well as 
-memory consuming, and the impact of model and hyperparameter choices can be more visible. This may make the bottlenecks 
-to be identified and the improved more easily.
+ot=σ(Wo.[ht− 1 ,xt] +bo(4)
 
-When it comes to resource profiling, we focus on CPU time, memory usage and cache used if possible as these usually 
-are the possible bottlenecks to be optimized.
+ht=ot∗tanh(Ct) (5)
 
+The model is trained with batch size of 50 and Adam as the optimizer. Af-
+ter the model is trained, we use some metrics to measure the performance of
+out model. Apart from accuracy, we will use ROC curve and confusion matrix
+to evaluate since this is a multiclass classification problem and the classes are
+imbalance.
+
+Since we want to analyze the resource usage when the model is trained, we
+do not pre-process the data and train our model with the original data. By do-
+ing this, the training will be compute-intensive as well as memory consuming,
+and the impact of model and hyperparameter choices can be more visible. This
+may make the bottlenecks to be identified and the improved more easily.
+
+When it comes to resource profiling, we focus on CPU time, memory usage
+and cache used if possible as these usually are the possible bottlenecks to be
+optimized.
+
+## References
+
+[1] Roland N Boubela, Klaudius Kalcher, Wolfgang Huf, Christian Naˇsel, and
+Ewald Moser. Big data approaches for the analysis of large-scale fmri data
+using apache spark and gpu processing: a demonstration on resting-state
+fmri data from the human connectome project. Frontiers in neuroscience,
+9:492, 2016.
+
+
+[2] John Darrell Van Horn and Arthur W Toga. Human neuroimaging as a “big
+data” science.Brain imaging and behavior, 8(2):323–331, 2014.
+
+[3] Guangyi Zhang, Vandad Davoodnia, Alireza Sepas-Moghaddam, Yaoxue
+Zhang, and Ali Etemad. Classification of hand movements from eeg using a
+deep attention-based lstm network.IEEE Sensors Journal, 2019.
+
+[4] Xiao Zheng, Wanzhong Chen, Yang You, Yun Jiang, Mingyang Li, and Tao
+Zhang. Ensemble deep learning for automated visual classification using eeg
+signals.Pattern Recognition, 102:107147, 2020.
