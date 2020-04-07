@@ -131,7 +131,7 @@ are the possible bottlenecks to be optimized.
 The model is trained with batch size of 50 applying Adam optimizer. After the model is trained, we use some metrics 
 to measure the performance of our model. Table 1 shows the performance of model for test dataset in term of several 
 metrics: precision, recall, f1-score and support. Our results show that the total accuracy equals to 0.7318. 
-Furthermore, Table 2 illustrates thec orresponding confusion matrix for the trained model on the test dataset.
+Furthermore, Table 2 illustrates the corresponding confusion matrix for the trained model on the test dataset.
 
 _we will use ROC curve and confusion matrix to evaluate since this is a multi-class classification problem and 
 the classes are imbalance._
@@ -145,7 +145,7 @@ _**Table 1. Classification measurements report**_
 | 3     | 0.00      | 0.00   | 0.00     | 142     |
 | 4     | 0.74      | 0.84   | 0.79     | 214     |
 
-_**Table 2. Confussion Matrix**_
+_**Table 2. Confusion Matrix**_
 
 |   |   |     |   |     |
 |---|---|-----|---|-----|
