@@ -46,7 +46,7 @@ as well as the possible bottleneck in neuroimaging application.
 
 ### **1.  Materials**
     
-### **1.1 Dataset**
+#### **1.1 Dataset**
 
 The data we used is from BOLD5000 repository [2], a human functional MRI(fMRI) study. 
 In this fMRI dataset, 4 participants were scanned in a slow-evented related design with 4,916 unique scenes.
@@ -64,18 +64,17 @@ In this dataset, for the first 3 subjects, we have the same number of experiment
 For the last subject, the number of experiments and features are 1122 and 2787, respectively.
  
 
-### **1.2 LSTM classification**
+#### **1.2 LSTM classifier**
 
-For the problem of fMRI images classification, type of times series based data classification, we choose 
-Long Short Term Memory (LSTM) as our classifier. LSTM is based on recurrent neural network (RNN), which is a 
-deep learning algorithm. In the following, we present a brief review on LSTM networks. 
+For the fMRI images classification problem with time-series data, we choose Long Short Term Memory (LSTM), which is 
+based on recurrent neural network (RNN), as our classifier. 
 
-The main motivation of applying 
-RNNs is extracting higher-dimensional dependencies from sequential data. The main characteristic of RNN units is that 
-they have connections not only between the subsequent layers,but also among themselves to capture information from 
-previous inputs. Even though traditional RNNs can easily learn short-term dependencies; however,they have difficulties 
+Our motivation of applying RNNs is extracting higher-dimensional dependencies from sequential data. 
+The main characteristic of RNN units is that they have connections not only between the adjacent layers, but also 
+among themselves to capture information from previous inputs. 
+Even though traditional RNNs can easily learn short-term dependencies; however,they have difficulties 
 in learning long-term dynamics due to the vanishing and exploding gradient problems. The main advantage of LSTM is 
-addressing the vanishing and exploding gradient problems by learning both long- and short-term dependencies [4].
+addressing the vanishing and exploding gradient problems by learning both long and short-term dependencies [4].
 
 **_I am not sure if we should describe LSTM cell with details or we should remove it*******_** 
 An LSTM network is composed of cells, whose outputs evolve through the network based on past memory content. 
@@ -99,7 +98,7 @@ In our work, the proposed network includes five LSTM layers and one dense layer.
 activation function. But we applied softmax activation function in the last dense layer to predict the probability 
 of each class. We set the dropout rate as 0.2 in all LSTM layers.
 
-### **1.3 Technologies, libraries and tools**
+#### **1.3 Technologies, libraries and tools**
 
 In this project, we use **_tensorflow_**, **_keras_**, which is widely used for deep learning,
 and **_sklearn_** for data preprocessing and performance evaluation. 

@@ -1,0 +1,8 @@
+
+subject     data_size   no_of_exp   no_of_features  memory_used(s)      processing_time(s)     training_time(s)
+                                                    (5steps/2steps)     (5steps/2steps)        (5steps/2steps)
+
+1           425 MB      1916        1685            1164MB / 614MB      14.33 / 12.81           202.76 / 84.74
+2           573 MB      1916        2270            1383MB / 692MB      14.81 / 12.34           233.27 / 99.04
+3           783 MB      1916        3104            1811MB / 818MB      17.02 / 12.61           284.63 / 123.52
+4           416 MB      1122        2787            1233MB / 676MB      9.12  / 7.34            164.46 / 73.05

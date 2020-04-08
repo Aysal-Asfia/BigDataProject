@@ -3,9 +3,12 @@ import json
 import matplotlib.pyplot as plt
 import numpy as np
 
-timestamps_file = "log/csi4/6steps/timestamps.json"
-mem_prof_file   = "log/csi4/6steps/atop.log"
-collectl_file   = "log/csi4/6steps/collectl-simgrid-vm-20200407.dsk.csv"
+subj = 1
+steps = 5
+
+timestamps_file = "log/csi%d/%dsteps/timestamps.json" % (subj, steps)
+mem_prof_file   = "log/csi%d/%dsteps/atop.log" % (subj, steps)
+collectl_file   = "log/csi%d/%dsteps/collectl-simgrid-vm-20200408.dsk.csv" % (subj, steps)
 
 f = open(mem_prof_file)
 lines = f.readlines()
@@ -25,7 +28,7 @@ swap_free = []
 
 # bw_r = []
 # bw_w = []
-for i in range(len(lines)):
+for i in range(15, len(lines)):
     line = lines[i]
     if line.startswith("MEM"):
         values = line.split(" ")
@@ -83,7 +86,7 @@ def timestamp_plot(fig, time_stamps):
 
 def mem_plot(fig, readonly=False):
     fig.minorticks_on()
-    fig.set_title("memory profiling (Subject #3, no_steps=6)")
+    fig.set_title("memory profiling (Subject #%d, no_steps=%d)" % (subj, steps))
     timestamp_plot(fig, timestamps)
 
     # app_cache = list(np.array(app_mem) + np.array(cache_used))
@@ -129,7 +132,7 @@ ax1 = figure.add_subplot(2, 1, 1)
 ax2 = figure.add_subplot(2, 1, 2, sharex=ax1)
 
 ax1.set_ylim(top=16000, bottom=-1000)
-ax1.set_xlim(left=-10, right=400)
+ax1.set_xlim(left=-10, right=250)
 mem_plot(ax1)
 
 collectl_plot(ax2)

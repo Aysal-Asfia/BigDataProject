@@ -12,8 +12,8 @@ if len(args) >= 3:
     subject = int(args[1])
     steps = int(args[2])
 else:
-    subject = 3
-    steps = 6
+    subject = 4
+    steps = 5
 
 print("\nRun pipeline with ROI #%d and %d time steps.\n" % (subject, steps))
 
@@ -26,7 +26,7 @@ enc = preprocessing.OneHotEncoder(categories='auto')
 enc.fit(Y_Data)
 Y_Data = enc.transform(Y_Data).toarray()
 
-X_train, X_test, Y_train, Y_test = train_test_split(X_Data, Y_Data, test_size=0.2)
+X_train, X_test, Y_train, Y_test = train_test_split(X_Data, Y_Data, test_size=0.25)
 
 processing_end = time.time()
 print("Preprocessed data in: %.2f sec\n" % (processing_end - processing_start))

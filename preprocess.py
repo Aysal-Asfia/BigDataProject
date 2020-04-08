@@ -12,21 +12,21 @@ def final_concat(CSI_TR, index_pos_list):
 
 
 def process_data(section_number, no_steps=5):
-    steps = 6 if no_steps == 6 else 5
-
-    CSI_TR1 = loadmat('ROIs/CSI%d/mat/CSI%d_ROIs_TR1.mat' % (section_number, section_number))
-    CSI_TR2 = loadmat('ROIs/CSI%d/mat/CSI%d_ROIs_TR2.mat' % (section_number, section_number))
-    CSI_TR3 = loadmat('ROIs/CSI%d/mat/CSI%d_ROIs_TR3.mat' % (section_number, section_number))
-    CSI_TR4 = loadmat('ROIs/CSI%d/mat/CSI%d_ROIs_TR4.mat' % (section_number, section_number))
-    CSI_TR5 = loadmat('ROIs/CSI%d/mat/CSI%d_ROIs_TR5.mat' % (section_number, section_number))
-    CSI_TR34 = loadmat('ROIs/CSI%d/mat/CSI%d_ROIs_TR34.mat' % (section_number, section_number))
 
     images = open("ROIs/stim_lists/CSI0%d_stim_lists.txt" % section_number, "r")
     d_images = {"image": np.array([[line.strip('\n')] for line in images])}
     labels = pd.read_pickle(image_label_file)
 
-    CSI1_TR_list = [CSI_TR1, CSI_TR2, CSI_TR3, CSI_TR4, CSI_TR5, CSI_TR34][:steps]
-    # new_CSI1_TR_list = []
+    if no_steps == 2:
+        CSI_TR34 = loadmat('ROIs/CSI%d/mat/CSI%d_ROIs_TR34.mat' % (section_number, section_number))
+        CSI1_TR_list = [CSI_TR34]
+    else:
+        CSI_TR1 = loadmat('ROIs/CSI%d/mat/CSI%d_ROIs_TR1.mat' % (section_number, section_number))
+        CSI_TR2 = loadmat('ROIs/CSI%d/mat/CSI%d_ROIs_TR2.mat' % (section_number, section_number))
+        CSI_TR3 = loadmat('ROIs/CSI%d/mat/CSI%d_ROIs_TR3.mat' % (section_number, section_number))
+        CSI_TR4 = loadmat('ROIs/CSI%d/mat/CSI%d_ROIs_TR4.mat' % (section_number, section_number))
+        CSI_TR5 = loadmat('ROIs/CSI%d/mat/CSI%d_ROIs_TR5.mat' % (section_number, section_number))
+        CSI1_TR_list = [CSI_TR1, CSI_TR2, CSI_TR3, CSI_TR4, CSI_TR5]
 
     for TR in CSI1_TR_list:
         for key in keys_to_remove:
