@@ -6,9 +6,8 @@ Functional magnetic resonance imaging (fMRI) is one of the most widely used tool
 human cognition. Meanwhile, in the field of neuroimaging, increasing spatial and temporal resolutions as well as 
 larger sample sizes lead to a rapid increase in the amount of data that needs to be processed in atypical study.  
 That is explosion of big imaging data highlights new challenges,such as data sharing, management, and processing, 
-as well as reproducibility. In this project, we apply deep learning algorithm to classify objects observed by subjects 
-using fMRI data. Subjects involved in the experiments were shown different images of static objects as well as 
-animated images. In addition, we also address big data management challenges of fMRI images in classification problems. 
+as well as reproducibility. In this project, we apply deep learning algorithm to classify objects observed by participants 
+using fMRI data. In addition, we also address challenges with big data in classification problems using fMRI data. 
 Particularly, we evaluate the performance of the algorithm on used data set in terms of classification metrics as well 
 as used resources in data pre-processing, model training, validation and testing.
 
@@ -19,28 +18,29 @@ Neuroimaging is a relatively new field emerged with the development in neuroscie
 which works with brain images to capture and analyze the structures and functions in parts of neural system. 
 Nowadays, due to the excellent resolution of fMRI data, the images containing visual objects can be effectively 
 recognized using specific patterns derived from this data that are recorded when images are displayed on screen in 
-front of the subjects [5].  In this project, we apply deep learning algorithms to classify  objects  observed  by  
-subjects using fMRI data. Subjects involved in the experiments were shown different images of static objects as well as 
-animated images.  The fMRI data of their brains when they were looking at the images was recorded in a few time steps.  
-This is the input for our classification algorithm. 
-
-Meanwhile, nowadays in the field of neuroimaging, with the augmentation of fMRI datasets, increasing spatial and 
-temporal resolutions as well as larger sample sizes lead to a rapid increase in the amount of data that needs to be 
-processed in a typical study [1]. For more clarification, based on paper [3], by 2015 the amount of acquired 
-neuroimaging data alone, discounting header information and before more files are generated during data processing and 
-statistical analysis, exceeded an average of 20GB per published research study.  However,as the richness of brain 
-datasets continues to grow and the push to place it inaccessible repositories mounts, there are many issues to be 
-considered on how to handle the data, move it from place to place, how to store it, analyze it, and share it [3].  
-Because of that, in paper [3], the authors indicated it is safe to say that human neuroimaging is now, officially, 
-a “big data” science.
-
+front of the subjects [5].  
+With the augmentation of fMRI datasets, increasing spatial and temporal resolutions as well as larger 
+sample size lead to a rapid increase in the amount of data that needs to be processed in a typical study [1]. 
+For more clarification, by 2015 the amount of acquired neuroimaging data alone, discounting header information 
+and before more files are generated during data processing and statistical analysis, exceeded an average of 20GB 
+per published research study [3]. However, as the richness of brain datasets continues to grow and the push to place it 
+inaccessible repositories mounts, there are many issues to be considered on data processing, data transferring, storage, 
+data analysis as well as data sharing [3]. Thus, the authors indicated it is safe to say that human neuroimaging is now, 
+officially, a “big data” science [3].
 Furthermore, in neuroimaging field in many applications, the problems that neuroscientists as well as 
-computer scientists are tackling with are not only which algorithms to apply, what is the best configuration 
-for the algorithms, but also the problems in resource optimization, reproducibility and fault-tolerance. 
-Thus, in this project, we profile the performance of the applied deep-learning technique on the applied dataset 
-in terms of used resources such as CPU and memory in different steps, from data pre-processing to model training, 
-validation and testing.  By doing this analysis, our expectation is to have an idea of where could be the bottleneck, 
-what could be improved to optimize resource usage.
+computer scientists are currently tackling with are not only on algorithms, but also in resource optimization, 
+reproducibility and fault-tolerance. 
+
+In this project, we focus on resource problem usage in a deep learning application of fMRI data. 
+We apply a deep learning algorithm to classify objects observed by different participants using fMRI data of brain scans. 
+Subjects involved in the experiments were shown stimuli, which are different images of static objects as well as animated images. 
+The fMRI scan data of their brains with different stimuli was recorded in a few time steps. 
+Our input data is region of interest voxels (ROI) preprocessed and represented in vector form. 
+Preprocessed ROI data of each participant is different in size as well as the number of features, which is the length of the vector. 
+Thus, we train our model with different subject independently with different combinations of time steps and compare the results. 
+Our goal is to have an idea of the improvements in the result with different data sizes, combinations of time steps 
+as well as the possible bottleneck in neuroimaging application.
+
 
 ## **II. Materials and methods**. 
 
