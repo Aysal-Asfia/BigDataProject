@@ -147,7 +147,7 @@ _**Table 1. Classification measurements report**_
 
 _**Table 2. Confusion Matrix**_
 
-|   |   |     |   |    
+|   |   |     |   |     |
 |---|---|-----|---|-----|
 | 2 | 0 | 4   | 0 | 14  |
 | 0 | 0 | 0   | 0 | 5   |
