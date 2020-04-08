@@ -27,7 +27,7 @@ This is the input for our classification algorithm.
 Meanwhile, nowadays in the field of neuroimaging, with the augmentation of fMRI datasets, increasing spatial and 
 temporal resolutions as well as larger sample sizes lead to a rapid increase in the amount of data that needs to be 
 processed in a typical study [1]. For more clarification, based on paper [3], by 2015 the amount of acquired 
-neuroimaging data alone, discounting header informa-tion and before more files are generated during data processing and 
+neuroimaging data alone, discounting header information and before more files are generated during data processing and 
 statistical analysis, exceeded an average of 20GB per published research study.  However,as the richness of brain 
 datasets continues to grow and the push to place it inaccessible repositories mounts, there are many issues to be 
 considered on how to handle the data, move it from place to place, how to store it, analyze it, and share it [3].  
@@ -62,8 +62,8 @@ images are labeled as ”Living Animate”, “Living Inanimate”, “Objects�
 mapping is “Dog” to “Living Animate” and“Vehicle” to “Objects”. 
 
 In this work, features of fMRI data were represented 
-by using ROI regions including: LHPPA’, ’RHLOC’, ’LHLOC’, ’RHEarlyVis’, ’RHRSC’, ’RHOPA’,’RHPPA’, ’LHEarlyVis’, ’LHRSC’, 
-’LHOPA’. The data of the ROIs were ex-tracted across the time-course of the trial presentation 
+by using ROI regions including: ’LHPPA’, ’RHLOC’, ’LHLOC’, ’RHEarlyVis’, ’RHRSC’, ’RHOPA’,’RHPPA’, ’LHEarlyVis’, ’LHRSC’, 
+’LHOPA’. The data of the ROIs were extracted across the time-course of the trial presentation 
 (TR1 = 0−2s,TR2 =32−4s,TR3=4−6s,TR4=6−8s,TR5=8−10s). In this dataset, for the first subject, the number of experiments 
 and features were 1916 and 1685, respectively. We have the same number of experiments for the other subjects. 
 However, the number of features for other three subjects were 2270, 3104, 2787 respectively.
@@ -88,10 +88,10 @@ in learning long-term dynamics due to the vanishing and exploding gradient probl
 addressing the vanishing and exploding gradient problems by learning both long- and short-term dependencies [4].
 
 **_I am not sure if we should describe LSTM cell with details or we should remove it*******_** 
-An LSTM network is composed of cells, whose outputsevolvethrough the network based on past memory content. 
+An LSTM network is composed of cells, whose outputs evolve through the network based on past memory content. 
 The cells have a common cell state, keeping long-term dependencies along the entire LSTM chain of cells. The following 
-information is then controlled by the input gate (it) and forgetgate (ft), thus allowing the network to decide whether 
-to forget the previousstate (Ct1) or update the current state(Ct) with new information. The output2 of each cell 
+information is then controlled by the input gate (it) and forget gate (ft), thus allowing the network to decide whether 
+to forget the previous state (Ct1) or update the current state(Ct) with new information. The output2 of each cell 
 (hidden state) is controlled by an output gate (ot), allowing the cell to compute its output given the updated 
 cell state [4].  The formulas describing an LSTM cell architecture are presented as:
 
@@ -147,7 +147,7 @@ _**Table 1. Classification measurements report**_
 
 _**Table 2. Confusion Matrix**_
 
-|   |   |     |   |     |
+
 |---|---|-----|---|-----|
 | 2 | 0 | 4   | 0 | 14  |
 | 0 | 0 | 0   | 0 | 5   |
