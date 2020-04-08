@@ -6,7 +6,7 @@ Functional magnetic resonance imaging (fMRI) is one of the most widely used tool
 human cognition. In this  project,we apply deep learning algorithms to classify objects observed by subjects 
 using fMRI data. Subjects involved in the experiments were shown different images of static objects as well as 
 animated images. Meanwhile, in the field of neuroimaging,  increasing spatial and temporal resolutions as well as 
-larger sample sizes lead to a rapid increase in the amount of data that needs to be processed in atypical study.  
+larger sample sizes lead to a rapid increase in the amount of data that needs to be processed in a typical study.  
 That is explosion of big imaging data highlights new challenges,such as data sharing, management, and processing, 
 as well as reproducibility. In the work, we address the big data management challenges for the problem of fMRI images 
 classification.  We profile the performance of the algorithm on used data set in terms of used resources such as 
@@ -16,7 +16,7 @@ CPU and memory in different steps, from data pre-processing to model training, v
 ## **I. Introduction**
 
 Neuroimaging is a relatively new field emerged with the development in neuroscience, psychology and computer science 
-which works with brain images to capture and analyze the structures and functions in parts of nervous system. 
+which works with brain images to capture and analyze the structures and functions in parts of neural system. 
 Nowadays, due to the excellent resolution of fMRI data, the images containing visual objects can be effectively 
 recognized using specific patterns derived from this data that are recorded when images are displayed on screen in 
 front of the subjects [5].  In this project, we apply deep learning algorithms to classify  objects  observed  by  
