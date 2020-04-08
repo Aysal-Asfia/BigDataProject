@@ -48,33 +48,23 @@ as well as the possible bottleneck in neuroimaging application.
     
 ### **1.1 Dataset**
 
-For  this  work,  we  used  BOLD5000  repository  [2],  a  human  functional  MRI(fMRI) study. This repository includes 
-almost 5,000 distinct images depicting real-world scenes as brain stimuli. However, from this repository we focused only 
-on ImageNet dataset, providing super-categories labels.  In this fMRI dataset, 4 participants were scanned in a 
-slow-evented related design with 4,916 unique scenes. 
-
+The data we used is from BOLD5000 repository [2], a human functional MRI(fMRI) study. 
+In this fMRI dataset, 4 participants were scanned in a slow-evented related design with 4,916 unique scenes.
 The fMRI data was collected over 16 sessions, 15 of which were task-related sessions, plus an additional session for 
-acquiring high resolution anatomical scans. Images were presented 
-for 1 second, with 9 seconds of fixation between trials.  Participants were asked to judge whether they liked, disliked, 
-or were neutral about the images.  As aforementioned, the images in ImageNet dataset are labeled with ImageNet 
-super categories. These super categories were created by using the WordNet hierarchy. From 61 final WordNet categories, 
-images are labeled as ”Living Animate”, “Living Inanimate”, “Objects”, “Food” or “Geography”. An example of label 
-mapping is “Dog” to “Living Animate” and“Vehicle” to “Objects”. 
+acquiring high resolution anatomical scans. Images were presented for 1 second, with 9 seconds of fixation between trials.  
+Participants were asked to judge whether they liked, disliked, or were neutral about the images. 
+As aforementioned, the images in ImageNet dataset are labeled with ImageNet super categories. 
+From these categories, images are labeled as ”Living Animate”, “Living Inanimate”, “Objects”, “Food” or “Geography”. 
+An example of label mapping is “Dog” to “Living Animate” and “Vehicle” to “Objects”. 
 
-In this work, features of fMRI data were represented 
-by using ROI regions including: ’LHPPA’, ’RHLOC’, ’LHLOC’, ’RHEarlyVis’, ’RHRSC’, ’RHOPA’,’RHPPA’, ’LHEarlyVis’, ’LHRSC’, 
-’LHOPA’. The data of the ROIs were extracted across the time-course of the trial presentation 
-(TR1 = 0−2s,TR2 =32−4s,TR3=4−6s,TR4=6−8s,TR5=8−10s). In this dataset, for the first subject, the number of experiments 
-and features were 1916 and 1685, respectively. We have the same number of experiments for the other subjects. 
-However, the number of features for other three subjects were 2270, 3104, 2787 respectively.
-
-### **1.2 Technologies**
-
-In this project, we use **_tensorflow_**, **_keras_**, which is widely used for deep learning,
-and **_sklearn_** for data preprocessing and performance evaluation. 
+Features of fMRI data were represented by using ROI regions including: ’LHPPA’, ’RHLOC’, ’LHLOC’, ’RHEarlyVis’, ’RHRSC’, ’RHOPA’,’RHPPA’, ’LHEarlyVis’, ’LHRSC’, ’LHOPA’. 
+The data of the ROIs were extracted across the time-course of the trial presentation 
+(TR1 = 0−2s,TR2 =32−4s,TR3=4−6s,TR4=6−8s,TR5=8−10s). 
+In this dataset, for the first 3 subjects, we have the same number of experiments, which is 1916, while the numbers of features are 1685, 2270, 3104.
+For the last subject, the number of experiments and features are 1122 and 2787, respectively.
  
 
-### **1.3 LSTM classification**
+### **1.2 LSTM classification**
 
 For the problem of fMRI images classification, type of times series based data classification, we choose 
 Long Short Term Memory (LSTM) as our classifier. LSTM is based on recurrent neural network (RNN), which is a 
@@ -108,6 +98,12 @@ ht=ot∗tanh(Ct) (5)_
 In our work, the proposed network includes five LSTM layers and one dense layer. In all of the layers, we used tanh 
 activation function. But we applied softmax activation function in the last dense layer to predict the probability 
 of each class. We set the dropout rate as 0.2 in all LSTM layers.
+
+### **1.3 Technologies, libraries and tools**
+
+In this project, we use **_tensorflow_**, **_keras_**, which is widely used for deep learning,
+and **_sklearn_** for data preprocessing and performance evaluation. 
+
 
 ### **2. Method**
 
