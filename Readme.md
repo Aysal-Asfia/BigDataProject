@@ -16,7 +16,7 @@ as used resources in data pre-processing, model training, validation and testing
 ## **I. Introduction**
 
 Neuroimaging is a relatively new field emerged with the development in neuroscience, psychology and computer science 
-which works with brain images to capture and analyze the structures and functions in parts of nervous system. 
+which works with brain images to capture and analyze the structures and functions in parts of neural system. 
 Nowadays, due to the excellent resolution of fMRI data, the images containing visual objects can be effectively 
 recognized using specific patterns derived from this data that are recorded when images are displayed on screen in 
 front of the subjects [5].  In this project, we apply deep learning algorithms to classify  objects  observed  by  

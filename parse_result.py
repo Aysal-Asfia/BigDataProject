@@ -3,9 +3,9 @@ import json
 import matplotlib.pyplot as plt
 import numpy as np
 
-timestamps_file = "log/roi1/5steps/timestamps.json"
-mem_prof_file   = "log/roi1/5steps/atop.log"
-collectl_file   = "log/roi1/5steps/collectl-simgrid-vm-20200402.dsk.csv"
+timestamps_file = "log/csi4/6steps/timestamps.json"
+mem_prof_file   = "log/csi4/6steps/atop.log"
+collectl_file   = "log/csi4/6steps/collectl-simgrid-vm-20200407.dsk.csv"
 
 f = open(mem_prof_file)
 lines = f.readlines()
@@ -59,6 +59,7 @@ for i in range(len(lines)):
 intervals = len(dirty_data)
 dirty_data = np.array(dirty_data)
 time = np.arange(0, intervals)
+print("mem used = %d" % (max(used_mem) - min(used_mem)))
 
 # ==========================MEM PROFILING===================================
 with open(timestamps_file) as time_stamp_file:
@@ -71,6 +72,9 @@ def timestamp_plot(fig, time_stamps):
     train_start = time_stamps["train_start"]
     train_end = time_stamps["train_end"]
 
+    print("processing: %.2f sec" % (processing_end - processing_start))
+    print("training: %.2f sec" % (train_end - train_start))
+
     fig.axvspan(xmin=processing_end - processing_start, xmax=processing_start - processing_start, color="g",
                 alpha=0.2, label="data processing")
     fig.axvspan(xmin=train_start - processing_start, xmax=train_end - processing_start, color="b",
@@ -79,7 +83,7 @@ def timestamp_plot(fig, time_stamps):
 
 def mem_plot(fig, readonly=False):
     fig.minorticks_on()
-    fig.set_title("memory profiling (ROI #1, no_steps = 5)")
+    fig.set_title("memory profiling (Subject #3, no_steps=6)")
     timestamp_plot(fig, timestamps)
 
     # app_cache = list(np.array(app_mem) + np.array(cache_used))
@@ -125,7 +129,7 @@ ax1 = figure.add_subplot(2, 1, 1)
 ax2 = figure.add_subplot(2, 1, 2, sharex=ax1)
 
 ax1.set_ylim(top=16000, bottom=-1000)
-ax1.set_xlim(left=-10, right=300)
+ax1.set_xlim(left=-10, right=400)
 mem_plot(ax1)
 
 collectl_plot(ax2)

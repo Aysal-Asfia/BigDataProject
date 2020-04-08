@@ -9,18 +9,18 @@ from train_test import train, evaluate, save_model, load_model
 
 args = sys.argv
 if len(args) >= 3:
-    roi = int(args[1])
+    subject = int(args[1])
     steps = int(args[2])
 else:
-    roi = 1
+    subject = 3
     steps = 6
 
-print("\nRun pipeline with ROI #%d and %d time steps.\n" % (roi, steps))
+print("\nRun pipeline with ROI #%d and %d time steps.\n" % (subject, steps))
 
 # ===========================PROCESSING START===============================
 processing_start = time.time()
 
-X_Data, Y_Data = process_data(roi, steps)
+X_Data, Y_Data = process_data(subject, steps)
 
 enc = preprocessing.OneHotEncoder(categories='auto')
 enc.fit(Y_Data)
