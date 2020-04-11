@@ -49,19 +49,17 @@ as well as the possible bottleneck in neuroimaging application.
 #### **1.1 Dataset**
 
 The data we used is from BOLD5000 repository [2], a human functional MRI(fMRI) study. 
-In this fMRI dataset, 4 participants were scanned in a slow-evented related design with 4,916 unique scenes.
-The fMRI data was collected over 16 sessions, 15 of which were task-related sessions, plus an additional session for 
-acquiring high resolution anatomical scans. Images were presented for 1 second, with 9 seconds of fixation between trials.  
-Participants were asked to judge whether they liked, disliked, or were neutral about the images. 
-As aforementioned, the images in ImageNet dataset are labeled with ImageNet super categories. 
+In this fMRI dataset, 4 participants were scanned and fMRI data was collected while subjects were asked whether they liked, disliked, or were neutral about the images. 
+The images dataset are labeled with ImageNet super categories. 
 From these categories, images are labeled as ”Living Animate”, “Living Inanimate”, “Objects”, “Food” or “Geography”. 
 An example of label mapping is “Dog” to “Living Animate” and “Vehicle” to “Objects”. 
 
-Features of fMRI data were represented by using ROI regions including: ’LHPPA’, ’RHLOC’, ’LHLOC’, ’RHEarlyVis’, ’RHRSC’, ’RHOPA’,’RHPPA’, ’LHEarlyVis’, ’LHRSC’, ’LHOPA’. 
+Features of fMRI data were represented by using ROIs including: ’LHPPA’, ’RHLOC’, ’LHLOC’, ’RHEarlyVis’, ’RHRSC’, ’RHOPA’,’RHPPA’, ’LHEarlyVis’, ’LHRSC’, ’LHOPA’. 
 The data of the ROIs were extracted across the time-course of the trial presentation 
-(TR1 = 0−2s,TR2 =32−4s,TR3=4−6s,TR4=6−8s,TR5=8−10s). 
-In this dataset, for the first 3 subjects, we have the same number of experiments, which is 1916, while the numbers of features are 1685, 2270, 3104.
-For the last subject, the number of experiments and features are 1122 and 2787, respectively.
+(TR1 = 0−2s,TR2 =2−4s,TR3=4−6s,TR4=6−8s,TR5=8−10s, TR34=4-8s).
+Data sizes of the subjects are 425 MB, 573 MB, 783 MB and 416 MB respectively.
+For the first 3 subjects, we have the same number of experiments, which is 1916, while the numbers of features are 1685, 2270, 3104.
+For the last subject, the number of experiments is 1122 and the number of feature is 2787.
  
 
 #### **1.2 LSTM classifier**
@@ -76,50 +74,23 @@ Even though traditional RNNs can easily learn short-term dependencies; however,t
 in learning long-term dynamics due to the vanishing and exploding gradient problems. The main advantage of LSTM is 
 addressing the vanishing and exploding gradient problems by learning both long and short-term dependencies [4].
 
-**_I am not sure if we should describe LSTM cell with details or we should remove it*******_** 
-An LSTM network is composed of cells, whose outputs evolve through the network based on past memory content. 
-The cells have a common cell state, keeping long-term dependencies along the entire LSTM chain of cells. The following 
-information is then controlled by the input gate (it) and forget gate (ft), thus allowing the network to decide whether 
-to forget the previous state (Ct1) or update the current state(Ct) with new information. The output2 of each cell 
-(hidden state) is controlled by an output gate (ot), allowing the cell to compute its output given the updated 
-cell state [4].  The formulas describing an LSTM cell architecture are presented as:
-
-_it=σ(Wi.[ht−1,xt] +bi(1)
-
-ft=σ(Wf.[ht−1,xt] +bf(2)
-
-Ct=ft∗Ct−1+it∗tanh(Wc.[ht−1,xt] +bc) (3)
-
-ot=σ(Wo.[ht−1,xt] +bo(4)
-
-ht=ot∗tanh(Ct) (5)_
+#### **1.3. Method**
 
 In our work, the proposed network includes five LSTM layers and one dense layer. In all of the layers, we used tanh 
 activation function. But we applied softmax activation function in the last dense layer to predict the probability 
-of each class. We set the dropout rate as 0.2 in all LSTM layers.
+of each class. The model is trained with batch size of 50 and Adam as the optimizer. We set the dropout rate as 0.25 in all LSTM layers.
 
-#### **1.3 Technologies, libraries and tools**
+As the model is trained, we collect the information of CPU time, memory usage, disk throughput and cache used 
+as these usually are the potential bottlenecks.
 
-In this project, we use **_tensorflow_**, **_keras_**, which is widely used for deep learning,
-and **_sklearn_** for data preprocessing and performance evaluation. 
+#### **1.4 Technologies, libraries and tools**
 
+We choose **_tensorflow_**, **_keras_**, which is widely used for deep learning, to implement LSTM algorithm
+and **_numpy_**, **_sklearn_** for data preprocessing. 
+In order to obtain system information including memory used and disk throughput, we use **_atop_** linux command 
+and **_collectl_**, a daemon software that collects system performance data.
+We run our implementation a cloud VM on Compute Canada with Centos 7 OS, GenuineIntel 2.6GHz single core processor, 16GB of RAM and a HDD of 220GB.
 
-### **2. Method**
-
-For this classification problem, since the fMRI images are in time series and are related,
-we choose LSTM as our classifier. 
-The model is trained with batch size of 50 and Adam as the optimizer. 
-After the model is trained, we use some metrics to measure the performance of out model. Apart from accuracy, 
-we will use ROC curve and confusion matrix to evaluate since this is a multiclass classification problem and 
-the classes are imbalance.
-
-Since we want to analyze the resource usage when the model is trained, we do not pre-process the data 
-and train our model with the original data. By doing this, the training will be compute-intensive as well as 
-memory consuming, and the impact of model and hyperparameter choices can be more visible. This may make the bottlenecks 
-to be identified and the improved more easily.
-
-When it comes to resource profiling, we focus on CPU time, memory usage and cache used if possible as these usually 
-are the possible bottlenecks to be optimized.
 
 ### **3. Result**
 
