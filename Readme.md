@@ -55,7 +55,7 @@ From these categories, images are labeled as ”Living Animate”, “Living Ina
 An example of label mapping is “Dog” to “Living Animate” and “Vehicle” to “Objects”. 
 
 Features of fMRI data were represented by using ROIs including: ’LHPPA’, ’RHLOC’, ’LHLOC’, ’RHEarlyVis’, ’RHRSC’, ’RHOPA’,’RHPPA’, ’LHEarlyVis’, ’LHRSC’, ’LHOPA’. 
-The data of the ROIs were extracted across the time-course of the trial presentation (TR1 = 0−2s,TR2 =2−4s,TR3=4−6s,TR4=6−8s,TR5=8−10s, TR34=4-8s)
+The data of the ROIs were extracted across the time-course of the trial presentation (TR1=0−2s, TR2 =2−4s, TR3=4−6s, TR4=6−8s, TR5=8−10s, TR34=4-8s)
 each of the time steps is represented as a vector.
 Data sizes of the subjects are 425 MB, 573 MB, 783 MB and 416 MB respectively.
 For the first 3 subjects, we have the same number of experiments, which is 1916, while the numbers of features are 1685, 2270, 3104.
@@ -109,7 +109,8 @@ than the scores of the model trained with all 5 steps from TR1 to TR5.
 
 ![](result/score.png) 
 
-<div align="center">_Figure 1. F1 score and accuracy of the model trained with different subject data._<div/>
+_<div align="center">Figure 1. F1 score and accuracy of the model trained with different subject data.<div/>_
+
 
 When the model was trained, the system information was collected using _atop_ and _collectl_. The data of memory used 
 collected by _atop_  as well as other information of the subjects is described in _Table 1_. Unsurprisingly, the bigger input data
@@ -123,13 +124,15 @@ data of time-steps 3-4 (TR34) was by far smaller than that with all 5 time-steps
 | 3       | 783 MB    | 1916        | 3104     | 1811 MB             | 818 MB             |
 | 4       | 416 MB    | 1122        | 2787     | 1233 MB             | 676 MB             |
 
-<div align="center">__**Table 1. Classification measurements report**__<div/>
+_<div align="center">**Table 1. Classification measurements report**<div/>_
+
 
 We also recorded data processing time as well as training time of subjects. The results are shown in _Figure 2_. 
 
 ![](result/time.png)
 
-<div align="center">_Figure 2. Processing and training time with different input data size._<div/>
+_<div align="center">Figure 2. Processing and training time with different input data size.<div/>_
+
 
 As we can see, as our input data grow larger, it takes more times to train the model. However, most of the time is training time 
 with all subjects and time-steps used. 
@@ -140,6 +143,9 @@ The top graph illustrates the amount of memory used and the bottom graphs shows 
 
 ![](result/csi3/5steps/mem_prof.png)
 
+_<div align="center">Figure 3. Memory used and disk throughput.<div/>_
+
+
 As is shown in the figure, our tasks only read data from disk during data processing phase and it did not read and write 
 to disk during training phase. This can be explained as the data size is small enough to fit in memory, so there was no 
 need to swap data to disk.
@@ -147,7 +153,7 @@ need to swap data to disk.
 
 ### **4. Discussion**
 
-[Add discussion here, cut other sessions off]
+
 
 ## **References**
 
