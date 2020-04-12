@@ -55,8 +55,8 @@ From these categories, images are labeled as ”Living Animate”, “Living Ina
 An example of label mapping is “Dog” to “Living Animate” and “Vehicle” to “Objects”. 
 
 Features of fMRI data were represented by using ROIs including: ’LHPPA’, ’RHLOC’, ’LHLOC’, ’RHEarlyVis’, ’RHRSC’, ’RHOPA’,’RHPPA’, ’LHEarlyVis’, ’LHRSC’, ’LHOPA’. 
-The data of the ROIs were extracted across the time-course of the trial presentation 
-(TR1 = 0−2s,TR2 =2−4s,TR3=4−6s,TR4=6−8s,TR5=8−10s, TR34=4-8s).
+The data of the ROIs were extracted across the time-course of the trial presentation (TR1 = 0−2s,TR2 =2−4s,TR3=4−6s,TR4=6−8s,TR5=8−10s, TR34=4-8s)
+each of the time steps is represented as a vector.
 Data sizes of the subjects are 425 MB, 573 MB, 783 MB and 416 MB respectively.
 For the first 3 subjects, we have the same number of experiments, which is 1916, while the numbers of features are 1685, 2270, 3104.
 For the last subject, the number of experiments is 1122 and the number of feature is 2787.
@@ -64,7 +64,7 @@ For the last subject, the number of experiments is 1122 and the number of featur
 
 #### **1.2 Algorithm**
 
-For the fMRI images classification problem with time-series data, we choose Long Short Term Memory (LSTM), which is 
+For the fMRI images classification problem with time-series data, we chose Long Short Term Memory (LSTM), which is 
 based on recurrent neural network (RNN), as our classifier. 
 
 Our motivation of applying RNNs is extracting higher-dimensional dependencies from sequential data. 
@@ -76,37 +76,45 @@ addressing the vanishing and exploding gradient problems by learning both long a
 
 #### **1.3. Method**
 
-The proposed network includes five LSTM layers and one dense layer. In all of the layers, we use _tanh_ 
-activation function and set the dropout rate as 0.25. In the last dense layer, we apply _softmax_ activation function to 
-predict the probability of each class. The model is trained with batch size of 50 and Adam as the optimizer.
+The proposed network includes five LSTM layers and one dense layer. In all of the layers, we used _tanh_ 
+activation function and set the dropout rate as 0.25. In the last dense layer, we applied _softmax_ activation function to 
+predict the probability of each class. We set the batch size to 50 and used Adam as the optimizer.
 
-The model is trained with different subjects independently since the number of features of each subject is different.
-For each subject, the model is trained twice, once with 5 steps from TR1 to TR5 and once with 2 steps combined in TR34.
-Three fourths of the data of each subject is used to train, the remaining is test data.
+The model was trained with different subjects independently since the number of features of each subject is different.
+For each subject, model was trained twice, once with 5 steps from TR1 to TR5 and once with 2 steps combined in TR34.
+With 5 time-steps data, as each of these is represent as a vector of features, we stacked all times-steps to create a 2d input array. 
+Three fourths of the data of each subject was used to train, the remaining was test data.
  
-As the model is trained, we collect the information of CPU time, memory usage, disk throughput and cache used. 
-Then we compare the results from different subject as well as results from the same subject with different time-steps used.
+During the model training, we collected the information of CPU time, memory usage, disk throughput and cache used. 
+Then we compared the results from different subject as well as results from the same subject with different time-steps used.
 
 #### **1.4 Technologies, libraries and tools**
 
-We choose **_tensorflow_**, **_keras_**, which is widely used for deep learning, to implement LSTM algorithm
+We chose **_tensorflow_**, **_keras_**, which is widely used for deep learning, to implement LSTM algorithm
 and **_numpy_**, **_sklearn_** for data preprocessing. 
-In order to obtain system information including memory used and disk throughput, we use **_atop_** linux command 
+In order to obtain system information including memory used and disk throughput, we used **_atop_** linux command 
 and **_collectl_**, a daemon software that collects system performance data.
-We run our implementation a cloud VM on Compute Canada with Centos 7 OS, GenuineIntel 2.6GHz single core processor, 16GB of RAM and a HDD of 220GB.
+Our implementation is run on a cloud VM on Compute Canada with Centos 7 OS, GenuineIntel 2.6GHz single core processor, 16GB of RAM and a HDD of 220GB.
 
 
 ### **3. Result**
 
+Because this is a multi-class classification problem and the classes are imbalance (for example for subject 1, the numbers 
+of data of each class are 30, 6, 170, 5, 267), the model is first evaluated using multi-class f1 score and accuracy. 
+_Figure 1_ describes the scores of the model trained with different subjects and different time steps, from TR1 to TR5 and TR34. 
+A glance at the figure shows that with all subjects,the scores of the model trained with TR34 steps are always higher 
+than the scores of the model trained with all 5 steps from TR1 to TR5. 
+
+(Confusion matrices and ROC curves of each subject can be found in [result](/result) folder.)
+
 ![](result/score.png) 
-Figure 1. F1 score and accuracy of the model trained with different subject data.
 
-Model is first evaluated using multi-class f1 score and accuracy. Figure 1 describes the scores of the model trained with 
-different subjects and different time steps, from TR1 to TR5 and TR34. A glance at the Figure 1 shows that with all subjects,
-the scores of the model trained with TR34 steps are always higher than the scores of the model trained with all 5 steps 
-from TR1 to TR5.
+<div align="center">_Figure 1. F1 score and accuracy of the model trained with different subject data._<div/>
 
-_**Table 1. Classification measurements report**_
+When the model was trained, the system information was collected using _atop_ and _collectl_. The data of memory used 
+collected by _atop_  as well as other information of the subjects is described in _Table 1_. Unsurprisingly, the bigger input data
+our model was trained with, the more memory was used. As a result, the amount of memory used when we trained model with 
+data of time-steps 3-4 (TR34) was by far smaller than that with all 5 time-steps.
 
 | Subject | Data size | Experiments | Features | Used memory (TR1-5) | Used memory (TR34) |
 |---------|-----------|-------------|----------|---------------------|--------------------|
@@ -115,30 +123,27 @@ _**Table 1. Classification measurements report**_
 | 3       | 783 MB    | 1916        | 3104     | 1811 MB             | 818 MB             |
 | 4       | 416 MB    | 1122        | 2787     | 1233 MB             | 676 MB             |
 
+<div align="center">__**Table 1. Classification measurements report**__<div/>
+
+We also recorded data processing time as well as training time of subjects. The results are shown in _Figure 2_. 
+
 ![](result/time.png)
 
-========================================================================================================================
+<div align="center">_Figure 2. Processing and training time with different input data size._<div/>
 
+As we can see, as our input data grow larger, it takes more times to train the model. However, most of the time is training time 
+with all subjects and time-steps used. 
 
-The model is trained with batch size of 50 applying Adam optimizer. After the model is trained, we use some metrics 
-to measure the performance of our model. Table 1 shows the performance of model for test dataset in term of several 
-metrics: precision, recall, f1-score and support. Our results show that the total accuracy equals to 0.7318. 
-Furthermore, Table 2 illustrates the corresponding confusion matrix for the trained model on the test dataset.
-
-_we will use ROC curve and confusion matrix to evaluate since this is a multi-class classification problem and 
-the classes are imbalance._
-
-
-
-Since we want to analyze the resource usage when the model is trained, we do not pre-process the data and train 
-our model with the original data. By doing this, the training will be compute-intensive as well as memory consuming, 
-and the impact of model and hyper-parameter choices can be more visible. This may make the bottlenecks to be identified 
-and the improved more easily.
-
-When it comes to resource profiling, we focus on CPU time, memory usage and cache used if possible as these usually are 
-the possible bottlenecks to be optimized.
+To look closer at data processing phase, we used data collected by _collectl_ to monitor disk read/write operations.
+Figure 3 shows the disk throughput when we trained our model using subject 3 data with 5 time-steps (TR1-5). 
+The top graph illustrates the amount of memory used and the bottom graphs shows the disk throughput during the task.  
 
 ![](result/csi3/5steps/mem_prof.png)
+
+As is shown in the figure, our tasks only read data from disk during data processing phase and it did not read and write 
+to disk during training phase. This can be explained as the data size is small enough to fit in memory, so there was no 
+need to swap data to disk.
+
 
 ### **4. Discussion**
 
