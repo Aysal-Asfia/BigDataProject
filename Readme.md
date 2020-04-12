@@ -47,7 +47,7 @@ as well as the potential bottleneck in deepp learning applications in neuroimagi
 
 ### **1. Dataset**
 
-The data we used is from BOLD5000 repository [2], a human functional MRI(fMRI) study. 
+The data we used is from BOLD5000 repository [2], a human functional MRI (fMRI) study. 
 In this dataset, 4 participants were scanned and fMRI data were collected while subjects were asked whether they liked, disliked, 
 or were neutral about the stimulus images. The images are labeled with ImageNet super categories. 
 From these categories, images are labeled as ”Living Animate”, “Living Inanimate”, “Objects”, “Food” or “Geography”. 
@@ -98,11 +98,13 @@ Our implementation was run on a cloud VM on Compute Canada with Centos 7 OS, Gen
 
 ## **III. Result**
 
-Because this is a multi-class classification problem and the classes are imbalance (for example for subject 1, the numbers 
-of data of each class are 30, 6, 170, 5, 267), the model is first evaluated using multi-class f1 score and accuracy. 
+As this is a multi-class classification problem and the classes are imbalance (for example for subject 1, the numbers 
+of data of each class are 30, 6, 170, 5, 267), the model performance was first evaluated using multi-class f1 score and accuracy. 
 _Figure 1_ describes the scores of the model trained with different subjects and different time steps, from TR1 to TR5 and TR34. 
-A glance at the figure shows that with all subjects,the scores of the model trained with TR34 steps are always higher 
-than the scores of the model trained with all 5 steps from TR1 to TR5. 
+A glance at the figure shows that for all subjects, the scores of the model trained with TR34 step are higher 
+than the those of the model trained with all 5 steps from TR1 to TR5. This may be explained as the important features might 
+concentrate in TR34 step, and as we used all time steps from TR1 to TR5, we might be either adding more noise data or making 
+our model overfit. 
 
 (Confusion matrices and ROC curves of each subject can be found in [result](/result) folder.)
 
@@ -111,10 +113,10 @@ than the scores of the model trained with all 5 steps from TR1 to TR5.
 _<div align="center">Figure 1. F1 score and accuracy of the model trained with different subject data.</div>_
 
 
-When the model was trained, the system information was collected using _atop_ and _collectl_. The data of memory used 
-collected by _atop_  as well as other information of the subjects is described in _Table 1_. We can see that the bigger input data
+During the runtime of the pipeline, the system information was collected using _atop_ and _collectl_. The amount of memory used 
+collected by _atop_  as well as other information of the subjects are described in _Table 1_. We can see that the bigger input data
 our model was trained with, the more memory was used, and the amount of memory used when we trained model with 
-data of time-steps 3-4 (TR34) was by far smaller than that with all 5 time-steps.
+data of time-step 3-4 (TR34) was by far smaller than that with all 5 time-steps.
 
 
 | Subject | Data size | Experiments | Features | Used memory (TR1-5) | Used memory (TR34) |
@@ -127,18 +129,18 @@ data of time-steps 3-4 (TR34) was by far smaller than that with all 5 time-steps
 _<div align="center">Table 1. Classification measurements report</div>_
 
 
-We also recorded data processing time as well as training time of subjects. The results are shown in _Figure 2_. 
+We also recorded data processing time as well as training time of subjects as is shown in _Figure 2_. 
 
 ![](result/time.png)
 
 _<div align="center">Figure 2. Processing and training time with different input data size.</div>_
 
 
-As we can see, as our input data grow larger, it takes more times to train the model. However, most of the time is training time 
+As we can see, as input data grows larger, the runtime of the pipeline becomes longer. However, most of the time is training time 
 with all subjects and time-steps used. 
 
-To look closer at data processing phase, we used data collected by _collectl_ to monitor disk read/write operations.
-Figure 3 shows the disk throughput when we trained our model using subject 3 data with 5 time-steps (TR1-5). 
+To look closer at data processing and training phases, we used data collected by _collectl_ to monitor disk read/write operations.
+Figure 3 shows the disk throughput when we ran our pipeline using subject 3 data with 5 time-steps (TR1-5). 
 The top graph illustrates the amount of memory used and the bottom graphs shows the disk throughput during the task.  
 
 ![](result/csi3/5steps/mem_prof.png)
@@ -146,9 +148,8 @@ The top graph illustrates the amount of memory used and the bottom graphs shows 
 _<div align="center">Figure 3. Memory used and disk throughput.</div>_
 
 
-As is shown in the figure, our tasks only read data from disk during data processing phase and it did not read and write 
-to disk during training phase. This can be explained as the data size is small enough to fit in memory, so there was no 
-need to swap data to disk.
+As is shown in the figure, data was only read from disk during data processing phase and there was no disk read/write during training phase. 
+This can be explained as when the data size is small enough to fit in memory, there was no need to swap data to disk.
 
 
 ## **IV. Discussion and future work**
