@@ -44,9 +44,7 @@ as well as the possible bottleneck in neuroimaging application.
 
 ## **II. Materials and methods**. 
 
-### **1.  Materials**
-    
-#### **1.1 Dataset**
+### **1 Dataset**
 
 The data we used is from BOLD5000 repository [2], a human functional MRI(fMRI) study. 
 In this fMRI dataset, 4 participants were scanned and fMRI data was collected while subjects were asked whether they liked, disliked, or were neutral about the images. 
@@ -62,7 +60,7 @@ For the first 3 subjects, we have the same number of experiments, which is 1916,
 For the last subject, the number of experiments is 1122 and the number of feature is 2787.
  
 
-#### **1.2 Algorithm**
+### **2 Algorithm**
 
 For the fMRI images classification problem with time-series data, we chose Long Short Term Memory (LSTM), which is 
 based on recurrent neural network (RNN), as our classifier. 
@@ -74,7 +72,7 @@ Even though traditional RNNs can easily learn short-term dependencies; however,t
 in learning long-term dynamics due to the vanishing and exploding gradient problems. The main advantage of LSTM is 
 addressing the vanishing and exploding gradient problems by learning both long and short-term dependencies [4].
 
-#### **1.3. Method**
+### **3. Method**
 
 The proposed network includes five LSTM layers and one dense layer. In all of the layers, we used _tanh_ 
 activation function and set the dropout rate as 0.25. In the last dense layer, we applied _softmax_ activation function to 
@@ -88,7 +86,7 @@ Three fourths of the data of each subject was used to train, the remaining was t
 During the model training, we collected the information of CPU time, memory usage, disk throughput and cache used. 
 Then we compared the results from different subject as well as results from the same subject with different time-steps used.
 
-#### **1.4 Technologies, libraries and tools**
+### **4 Technologies, libraries and tools**
 
 We chose **_tensorflow_**, **_keras_**, which is widely used for deep learning, to implement LSTM algorithm
 and **_numpy_**, **_sklearn_** for data preprocessing. 
@@ -97,7 +95,7 @@ and **_collectl_**, a daemon software that collects system performance data.
 Our implementation is run on a cloud VM on Compute Canada with Centos 7 OS, GenuineIntel 2.6GHz single core processor, 16GB of RAM and a HDD of 220GB.
 
 
-### **3. Result**
+## **III. Result**
 
 Because this is a multi-class classification problem and the classes are imbalance (for example for subject 1, the numbers 
 of data of each class are 30, 6, 170, 5, 267), the model is first evaluated using multi-class f1 score and accuracy. 
@@ -152,7 +150,7 @@ to disk during training phase. This can be explained as the data size is small e
 need to swap data to disk.
 
 
-### **4. Discussion and future work**
+## **IV. Discussion and future work**
 
 In this project, we trained our model with data of different subjects and different features (time-steps). The variation 
 in data size as well as features resulted in the variation in performance of the model. Our results show that with 
