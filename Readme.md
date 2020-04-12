@@ -109,13 +109,14 @@ than the scores of the model trained with all 5 steps from TR1 to TR5.
 
 ![](result/score.png) 
 
-_<div align="center">Figure 1. F1 score and accuracy of the model trained with different subject data.<div/>_
+_<div align="center">Figure 1. F1 score and accuracy of the model trained with different subject data.</div>_
 
 
 When the model was trained, the system information was collected using _atop_ and _collectl_. The data of memory used 
 collected by _atop_  as well as other information of the subjects is described in _Table 1_. Unsurprisingly, the bigger input data
 our model was trained with, the more memory was used. As a result, the amount of memory used when we trained model with 
 data of time-steps 3-4 (TR34) was by far smaller than that with all 5 time-steps.
+
 
 | Subject | Data size | Experiments | Features | Used memory (TR1-5) | Used memory (TR34) |
 |---------|-----------|-------------|----------|---------------------|--------------------|
@@ -124,14 +125,14 @@ data of time-steps 3-4 (TR34) was by far smaller than that with all 5 time-steps
 | 3       | 783 MB    | 1916        | 3104     | 1811 MB             | 818 MB             |
 | 4       | 416 MB    | 1122        | 2787     | 1233 MB             | 676 MB             |
 
-_<div align="center">**Table 1. Classification measurements report**<div/>_
+_<div align="center">Table 1. Classification measurements report</div>_
 
 
 We also recorded data processing time as well as training time of subjects. The results are shown in _Figure 2_. 
 
 ![](result/time.png)
 
-_<div align="center">Figure 2. Processing and training time with different input data size.<div/>_
+_<div align="center">Figure 2. Processing and training time with different input data size.</div>_
 
 
 As we can see, as our input data grow larger, it takes more times to train the model. However, most of the time is training time 
@@ -143,7 +144,7 @@ The top graph illustrates the amount of memory used and the bottom graphs shows 
 
 ![](result/csi3/5steps/mem_prof.png)
 
-_<div align="center">Figure 3. Memory used and disk throughput.<div/>_
+_<div align="center">Figure 3. Memory used and disk throughput.</div>_
 
 
 As is shown in the figure, our tasks only read data from disk during data processing phase and it did not read and write 
