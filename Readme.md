@@ -62,7 +62,7 @@ For the first 3 subjects, we have the same number of experiments, which is 1916,
 For the last subject, the number of experiments is 1122 and the number of feature is 2787.
  
 
-#### **1.2 LSTM classifier**
+#### **1.2 Algorithm**
 
 For the fMRI images classification problem with time-series data, we choose Long Short Term Memory (LSTM), which is 
 based on recurrent neural network (RNN), as our classifier. 
@@ -76,12 +76,16 @@ addressing the vanishing and exploding gradient problems by learning both long a
 
 #### **1.3. Method**
 
-In our work, the proposed network includes five LSTM layers and one dense layer. In all of the layers, we used tanh 
-activation function. But we applied softmax activation function in the last dense layer to predict the probability 
-of each class. The model is trained with batch size of 50 and Adam as the optimizer. We set the dropout rate as 0.25 in all LSTM layers.
+The proposed network includes five LSTM layers and one dense layer. In all of the layers, we use _tanh_ 
+activation function and set the dropout rate as 0.25. In the last dense layer, we apply _softmax_ activation function to 
+predict the probability of each class. The model is trained with batch size of 50 and Adam as the optimizer.
 
-As the model is trained, we collect the information of CPU time, memory usage, disk throughput and cache used 
-as these usually are the potential bottlenecks.
+The model is trained with different subjects independently since the number of features of each subject is different.
+For each subject, the model is trained twice, once with 5 steps from TR1 to TR5 and once with 2 steps combined in TR34.
+Three fourths of the data of each subject is used to train, the remaining is test data.
+ 
+As the model is trained, we collect the information of CPU time, memory usage, disk throughput and cache used. 
+Then we compare the results from different subject as well as results from the same subject with different time-steps used.
 
 #### **1.4 Technologies, libraries and tools**
 
@@ -94,6 +98,28 @@ We run our implementation a cloud VM on Compute Canada with Centos 7 OS, Genuine
 
 ### **3. Result**
 
+![](result/score.png) 
+Figure 1. F1 score and accuracy of the model trained with different subject data.
+
+Model is first evaluated using multi-class f1 score and accuracy. Figure 1 describes the scores of the model trained with 
+different subjects and different time steps, from TR1 to TR5 and TR34. A glance at the Figure 1 shows that with all subjects,
+the scores of the model trained with TR34 steps are always higher than the scores of the model trained with all 5 steps 
+from TR1 to TR5.
+
+_**Table 1. Classification measurements report**_
+
+| Subject | Data size | Experiments | Features | Used memory (TR1-5) | Used memory (TR34) |
+|---------|-----------|-------------|----------|---------------------|--------------------|
+| 1       | 425 MB    | 1916        | 1685     | 1164 MB             | 614 MB             |
+| 2       | 573 MB    | 1916        | 2270     | 1383 MB             | 692 MB             |
+| 3       | 783 MB    | 1916        | 3104     | 1811 MB             | 818 MB             |
+| 4       | 416 MB    | 1122        | 2787     | 1233 MB             | 676 MB             |
+
+![](result/time.png)
+
+========================================================================================================================
+
+
 The model is trained with batch size of 50 applying Adam optimizer. After the model is trained, we use some metrics 
 to measure the performance of our model. Table 1 shows the performance of model for test dataset in term of several 
 metrics: precision, recall, f1-score and support. Our results show that the total accuracy equals to 0.7318. 
@@ -102,24 +128,7 @@ Furthermore, Table 2 illustrates the corresponding confusion matrix for the trai
 _we will use ROC curve and confusion matrix to evaluate since this is a multi-class classification problem and 
 the classes are imbalance._
 
-_**Table 1. Classification measurements report**_
 
-| index | precision | recall | f1_score | support |
-|-------|-----------|--------|----------|---------|
-| 1     | 0.33      | 0.10   | 0.15     | 20      |
-| 2     | 0.00      | 0.00   | 0.00     | 5       |
-| 3     | 0.00      | 0.00   | 0.00     | 142     |
-| 4     | 0.74      | 0.84   | 0.79     | 214     |
-
-_**Table 2. Confusion Matrix**_
-
-|   |   |     |   |     |
-|---|---|-----|---|-----|
-| 2 | 0 | 4   | 0 | 14  |
-| 0 | 0 | 0   | 0 | 5   |
-| 1 | 0 | 100 | 1 | 40  |
-| 0 | 0 | 0   | 0 | 3   |
-| 3 | 0 | 31  | 1 | 179 |
 
 Since we want to analyze the resource usage when the model is trained, we do not pre-process the data and train 
 our model with the original data. By doing this, the training will be compute-intensive as well as memory consuming, 
@@ -128,6 +137,8 @@ and the improved more easily.
 
 When it comes to resource profiling, we focus on CPU time, memory usage and cache used if possible as these usually are 
 the possible bottlenecks to be optimized.
+
+![](result/csi3/5steps/mem_prof.png)
 
 ### **4. Discussion**
 
