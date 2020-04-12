@@ -6,9 +6,10 @@ Functional magnetic resonance imaging (fMRI) is one of the most widely used tool
 human cognition. Meanwhile, in the field of neuroimaging, increasing spatial and temporal resolutions as well as 
 larger sample sizes lead to a rapid increase in the amount of data that needs to be processed in atypical study.  
 That is explosion of big imaging data highlights new challenges,such as data sharing, management, and processing, 
-as well as reproducibility. In this project, we apply deep learning algorithm to classify objects observed by participants 
-using fMRI data. In addition, we also address challenges with big data in classification problems using fMRI data. 
-Particularly, we evaluate the performance of the algorithm on used data set in terms of classification metrics as well 
+as well as reproducibility. 
+In this project, we applied deep learning algorithm to classify objects observed by participants 
+using fMRI data. In addition, we also investigated potential challenges with big data in classification problem using large fMRI datasets. 
+Particularly, we analysed the performance of the algorithm on used dataset in terms of classification metrics as well 
 as used resources in data pre-processing, model training, validation and testing.
 
 
@@ -31,20 +32,20 @@ Furthermore, in neuroimaging field in many applications, the problems that neuro
 computer scientists are currently tackling with are not only on algorithms, but also in resource optimization, 
 reproducibility and fault-tolerance. 
 
-In this project, we focus on resource problem usage in a deep learning application of fMRI data. 
-We apply a deep learning algorithm to classify objects observed by different participants using fMRI data of brain scans. 
+In this project, apart from model performance, we analysed resource usage in a deep learning application using fMRI data. 
+We applied a deep learning algorithm to classify fMRI brain scan images of different participants. 
 Subjects involved in the experiments were shown stimuli, which are different images of static objects as well as animated images. 
 The fMRI scan data of their brains with different stimuli was recorded in a few time steps. 
 Our input data is region of interest voxels (ROI) preprocessed and represented in vector form. 
 Preprocessed ROI data of each participant is different in size as well as the number of features, which is the length of the vector. 
-Thus, we train our model with different subject independently with different combinations of time steps and compare the results. 
-Our goal is to have an idea of the improvements in the result with different data sizes, combinations of time steps 
-as well as the possible bottleneck in neuroimaging application.
+Thus, we trained our model with different subject independently with different combinations of time steps and compared the results. 
+Our goal was to have an idea of the improvements in the result with different data sizes, combinations of time steps 
+as well as the potential bottleneck in deepp learning applications in neuroimaging using large fMRI datasets.
 
 
 ## **II. Materials and methods**. 
 
-### **1 Dataset**
+### **1. Dataset**
 
 The data we used is from BOLD5000 repository [2], a human functional MRI(fMRI) study. 
 In this fMRI dataset, 4 participants were scanned and fMRI data was collected while subjects were asked whether they liked, disliked, or were neutral about the images. 
@@ -60,7 +61,7 @@ For the first 3 subjects, we have the same number of experiments, which is 1916,
 For the last subject, the number of experiments is 1122 and the number of feature is 2787.
  
 
-### **2 Algorithm**
+### **2. Algorithm**
 
 For the fMRI images classification problem with time-series data, we chose Long Short Term Memory (LSTM), which is 
 based on recurrent neural network (RNN), as our classifier. 
@@ -86,7 +87,7 @@ Three fourths of the data of each subject was used to train, the remaining was t
 During the model training, we collected the information of CPU time, memory usage, disk throughput and cache used. 
 Then we compared the results from different subject as well as results from the same subject with different time-steps used.
 
-### **4 Technologies, libraries and tools**
+### **4. Technologies, libraries and tools**
 
 We chose **_tensorflow_**, **_keras_**, which is widely used for deep learning, to implement LSTM algorithm
 and **_numpy_**, **_sklearn_** for data preprocessing. 
