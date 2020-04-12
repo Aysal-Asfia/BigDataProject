@@ -154,20 +154,20 @@ This can be explained as when the data size is small enough to fit in memory, th
 
 ## **IV. Discussion and future work**
 
-In this project, we trained our model with data of different subjects and different features (time-steps). The variation 
-in data size as well as features resulted in the variation in performance of the model. Our results show that with 
-feature engineering (selection or processing) can help to achieve better results, as well as optimize resource usage. 
+In this project, we pre-processed data and trained our model with different subjects and different time-steps. The variation 
+in data size as well as features resulted in the variation in performance of the model. Our results showed that 
+feature engineering (selection or processing) can not only help to achieve better results, but may optimize resource usage. 
 
 However, we only managed to use preprocessed data, which is regions of interest (ROI) voxels in vector form. In neuroimaging, 
-with the development of brain scanning techniques and storage technologies, there are many deep learning applications and pipelines using 
-raw brain images, which can be up to several GBs for each subject, as the input. Using this big data can lead to 
-in the read time considerably long compared to training time, intertwined reading and writing, swapping data to disk, etc, 
-which we have not seen in _Figure 3_. 
+with the development of brain scanning techniques and storage technologies, there have been many deep learning applications and pipelines 
+using raw fMRI brain images, which can be up to several GBs in size for each subject, as the input. Using this big data can 
+make the data read time considerably long compared to training time, intertwined reading and writing during the pipeline, 
+swapping in/out data to/from disk, etc, which we have not seen in _Figure 3_. 
 
-By the time we did this project, there were a number of big data analytics techniques have been 
-implemented and optimized in big data frameworks. 
-In the future work, we are interested in defining a new deep learning use case using raw fMRI images as the input to investigate 
-the scalability of deep learning techniques with fMRI data.   
+By the time we did this project, there had been a number of big data analytics techniques have been implemented and optimized 
+in big data frameworks, but deep learning techniques with big data still remained as a question to us. 
+In the future work, we are interested in defining a new deep learning use case using raw fMRI images as the input, which is considerably large 
+to investigate the scalability of deep learning techniques with fMRI data.   
 
 ## **References**
 
