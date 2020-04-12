@@ -1,4 +1,4 @@
-# Observed objects classification based on fMRI data
+# Observed objects classification using deep learning and fMRI data
 
 ## **Abstract** 
 
