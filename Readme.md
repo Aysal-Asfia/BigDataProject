@@ -113,8 +113,8 @@ _<div align="center">Figure 1. F1 score and accuracy of the model trained with d
 
 
 When the model was trained, the system information was collected using _atop_ and _collectl_. The data of memory used 
-collected by _atop_  as well as other information of the subjects is described in _Table 1_. Unsurprisingly, the bigger input data
-our model was trained with, the more memory was used. As a result, the amount of memory used when we trained model with 
+collected by _atop_  as well as other information of the subjects is described in _Table 1_. We can see that the bigger input data
+our model was trained with, the more memory was used, and the amount of memory used when we trained model with 
 data of time-steps 3-4 (TR34) was by far smaller than that with all 5 time-steps.
 
 
@@ -152,9 +152,22 @@ to disk during training phase. This can be explained as the data size is small e
 need to swap data to disk.
 
 
-### **4. Discussion**
+### **4. Discussion and future work**
 
+In this project, we trained our model with data of different subjects and different features (time-steps). The variation 
+in data size as well as features resulted in the variation in performance of the model. Our results show that with 
+feature engineering (selection or processing) can help to achieve better results, as well as optimize resource usage. 
 
+However, we only managed to use preprocessed data, which is regions of interest (ROI) voxels in vector form. In neuroimaging, 
+with the development of brain scanning techniques and storage technologies, there are many deep learning applications and pipelines using 
+raw brain images, which can be up to several GBs for each subject, as the input. Using this big data can lead to 
+in the read time considerably long compared to training time, intertwined reading and writing, swapping data to disk, etc, 
+which we have not seen in _Figure 3_. 
+
+By the time we did this project, there were a number of big data analytics techniques have been 
+implemented and optimized in big data frameworks. 
+In the future work, we are interested in defining a new deep learning use case using raw fMRI images as the input to investigate 
+the scalability of deep learning techniques with fMRI data.   
 
 ## **References**
 
