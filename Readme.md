@@ -48,13 +48,13 @@ as well as the potential bottleneck in deepp learning applications in neuroimagi
 ### **1. Dataset**
 
 The data we used is from BOLD5000 repository [2], a human functional MRI(fMRI) study. 
-In this fMRI dataset, 4 participants were scanned and fMRI data was collected while subjects were asked whether they liked, disliked, or were neutral about the images. 
-The images dataset are labeled with ImageNet super categories. 
+In this dataset, 4 participants were scanned and fMRI data were collected while subjects were asked whether they liked, disliked, 
+or were neutral about the stimulus images. The images are labeled with ImageNet super categories. 
 From these categories, images are labeled as ”Living Animate”, “Living Inanimate”, “Objects”, “Food” or “Geography”. 
 An example of label mapping is “Dog” to “Living Animate” and “Vehicle” to “Objects”. 
 
-Features of fMRI data were represented by using ROIs including: ’LHPPA’, ’RHLOC’, ’LHLOC’, ’RHEarlyVis’, ’RHRSC’, ’RHOPA’,’RHPPA’, ’LHEarlyVis’, ’LHRSC’, ’LHOPA’. 
-The data of the ROIs were extracted across the time-course of the trial presentation (TR1=0−2s, TR2 =2−4s, TR3=4−6s, TR4=6−8s, TR5=8−10s, TR34=4-8s)
+Features of fMRI images were represented by using ROIs including: ’LHPPA’, ’RHLOC’, ’LHLOC’, ’RHEarlyVis’, ’RHRSC’, ’RHOPA’,’RHPPA’, ’LHEarlyVis’, ’LHRSC’, ’LHOPA’. 
+The data of the ROIs was extracted across the time-course of the trial presentation (TR1=0−2s, TR2 =2−4s, TR3=4−6s, TR4=6−8s, TR5=8−10s, TR34=4-8s),
 each of the time steps is represented as a vector.
 Data sizes of the subjects are 425 MB, 573 MB, 783 MB and 416 MB respectively.
 For the first 3 subjects, we have the same number of experiments, which is 1916, while the numbers of features are 1685, 2270, 3104.
@@ -63,13 +63,13 @@ For the last subject, the number of experiments is 1122 and the number of featur
 
 ### **2. Algorithm**
 
-For the fMRI images classification problem with time-series data, we chose Long Short Term Memory (LSTM), which is 
+For this classification problem with time-series data, we chose Long Short Term Memory (LSTM), which is 
 based on recurrent neural network (RNN), as our classifier. 
 
 Our motivation of applying RNNs is extracting higher-dimensional dependencies from sequential data. 
 The main characteristic of RNN units is that they have connections not only between the adjacent layers, but also 
 among themselves to capture information from previous inputs. 
-Even though traditional RNNs can easily learn short-term dependencies; however,they have difficulties 
+Even though traditional RNNs can easily learn short-term dependencies; however, they have difficulties 
 in learning long-term dynamics due to the vanishing and exploding gradient problems. The main advantage of LSTM is 
 addressing the vanishing and exploding gradient problems by learning both long and short-term dependencies [4].
 
@@ -77,23 +77,23 @@ addressing the vanishing and exploding gradient problems by learning both long a
 
 The proposed network includes five LSTM layers and one dense layer. In all of the layers, we used _tanh_ 
 activation function and set the dropout rate as 0.25. In the last dense layer, we applied _softmax_ activation function to 
-predict the probability of each class. We set the batch size to 50 and used Adam as the optimizer.
+predict the probability of each class. We set batch size to 50 and used _Adam_ as the optimizer.
 
 The model was trained with different subjects independently since the number of features of each subject is different.
 For each subject, model was trained twice, once with 5 steps from TR1 to TR5 and once with 2 steps combined in TR34.
-With 5 time-steps data, as each of these is represent as a vector of features, we stacked all times-steps to create a 2d input array. 
-Three fourths of the data of each subject was used to train, the remaining was test data.
+With 5 time-steps data, as each of these is represented as a vector of features, we stacked all times-steps to create a 2d input array. 
+Three fourths of each subject data was used to train, the remaining was test data.
  
-During the model training, we collected the information of CPU time, memory usage, disk throughput and cache used. 
-Then we compared the results from different subject as well as results from the same subject with different time-steps used.
+During data pre-processing and model training, we collected the information of CPU time, memory usage, disk throughput and cache used. 
+Then we compared the results from different subjects as well as results from the same subject with different time-steps combinations.
 
 ### **4. Technologies, libraries and tools**
 
 We chose **_tensorflow_**, **_keras_**, which is widely used for deep learning, to implement LSTM algorithm
-and **_numpy_**, **_sklearn_** for data preprocessing. 
-In order to obtain system information including memory used and disk throughput, we used **_atop_** linux command 
+and **_numpy_**, **_sklearn_** for data pre-processing. 
+In order to obtain system information including memory used and disk throughput, we ran **_atop_** linux command 
 and **_collectl_**, a daemon software that collects system performance data.
-Our implementation is run on a cloud VM on Compute Canada with Centos 7 OS, GenuineIntel 2.6GHz single core processor, 16GB of RAM and a HDD of 220GB.
+Our implementation was run on a cloud VM on Compute Canada with Centos 7 OS, GenuineIntel 2.6GHz single core processor, 16GB of RAM and a HDD of 220GB.
 
 
 ## **III. Result**
