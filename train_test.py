@@ -3,7 +3,7 @@ from keras import optimizers
 from keras.callbacks import ModelCheckpoint
 from keras.layers import Dense, LSTM
 from keras.models import Sequential, model_from_json
-from sklearn.metrics import roc_auc_score, roc_curve, auc, confusion_matrix, classification_report
+from sklearn.metrics import roc_auc_score, roc_curve, auc, confusion_matrix, classification_report, f1_score
 import matplotlib.pyplot as plt
 
 
@@ -49,56 +49,72 @@ def evaluate(model, X_test, Y_test):
 
     # Accuracy
     scores = model.evaluate(X_test, Y_test, verbose=0)
-    print("%s: %.2f%%" % (model.metrics_names[1], scores[1] * 100))
+    accuracy = scores[1]
+    print("%s: %.f" % (model.metrics_names[1], scores[1]))
 
-    # ROC curve
-    Y_predict = model.predict(X_test)
-    roc_auc_score(Y_test, Y_predict)
-
-    fpr = dict()
-    tpr = dict()
-    roc_auc = dict()
-    for i in range(5):
-        fpr[i], tpr[i], _ = roc_curve(Y_test[:, i], Y_predict[:, i])
-        roc_auc[i] = auc(fpr[i], tpr[i])
-
-    # Compute micro-average ROC curve and ROC area
-    fpr["micro"], tpr["micro"], _ = roc_curve(Y_test.ravel(), Y_predict.ravel())
-    roc_auc["micro"] = auc(fpr["micro"], tpr["micro"])
-    plt.figure()
-    lw = 2
-    plt.plot(fpr[2], tpr[2], color='darkorange',
-             lw=lw, label='ROC curve (area = %0.2f)' % roc_auc[2])
-    plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
-    plt.xlim([0.0, 1.0])
-    plt.ylim([0.0, 1.05])
-    plt.xlabel('False Positive Rate')
-    plt.ylabel('True Positive Rate')
-    plt.title('ROC curve')
-    plt.legend(loc="lower right")
-    plt.show()
-
-    M = model.predict_classes(X_test)
-
-    ytt = np.zeros((Y_test.shape[0], 1))
+    y_test_arr = np.zeros((Y_test.shape[0], 1))
     for i, val in enumerate(Y_test):
         val = val.tolist()
-        ytt[i] = int(val.index(1.0))
+        y_test_arr[i] = int(val.index(1.0))
 
-    report = classification_report(ytt, M)
-    print("classification report")
-    print(report)
+    Y_predict = model.predict(X_test)
+    y_pred_arr = np.zeros((Y_test.shape[0], 1))
+    for i, val in enumerate(Y_predict):
+        val = val.tolist()
+        y_pred_arr[i] = int(val.index(max(val)))
 
-    matrix = confusion_matrix(ytt, M)
-    print("confusion matrix")
-    print(matrix)
+    f1 = f1_score(y_test_arr, y_pred_arr, average="weighted")
+    print("F1 score: %f" % f1)
 
-    plt.imshow(matrix, interpolation=None, cmap='binary')
-    plt.colorbar()
-    plt.title('confusion matrix')
-    plt.ylabel('True label')
-    plt.xlabel('Predicted label')
-    plt.show()
+    # ROC curve
+    # roc_auc_score(Y_test, Y_predict)
+    #
+    # fpr = dict()
+    # tpr = dict()
+    # roc_auc = dict()
+    # for i in range(5):
+    #     fpr[i], tpr[i], _ = roc_curve(Y_test[:, i], Y_predict[:, i])
+    #     roc_auc[i] = auc(fpr[i], tpr[i])
+    #
+    # # Compute micro-average ROC curve and ROC area
+    # fpr["micro"], tpr["micro"], _ = roc_curve(Y_test.ravel(), Y_predict.ravel())
+    # roc_auc["micro"] = auc(fpr["micro"], tpr["micro"])
+    # plt.figure()
+    # lw = 2
+    # plt.plot(fpr[2], tpr[2], color='darkorange',
+    #          lw=lw, label='ROC curve (area = %0.2f)' % roc_auc[2])
+    # plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
+    # plt.xlim([0.0, 1.0])
+    # plt.ylim([0.0, 1.05])
+    # plt.xlabel('False Positive Rate')
+    # plt.ylabel('True Positive Rate')
+    # plt.title('ROC curve')
+    # plt.legend(loc="lower right")
+    # plt.show()
+    #
+    # M = model.predict_classes(X_test)
+    #
+    # ytt = np.zeros((Y_test.shape[0], 1))
+    # for i, val in enumerate(Y_test):
+    #     val = val.tolist()
+    #     ytt[i] = int(val.index(1.0))
+    #
+    # report = classification_report(ytt, M)
+    # print("classification report")
+    # print(report)
+    #
+    # matrix = confusion_matrix(ytt, M)
+    # print("confusion matrix")
+    # print(matrix)
+    #
+    # plt.imshow(matrix, interpolation=None, cmap='binary')
+    # plt.colorbar()
+    # plt.title('confusion matrix')
+    # plt.ylabel('True label')
+    # plt.xlabel('Predicted label')
+    # plt.show()
+
+    return f1, accuracy
 
 
 def save_model(model, model_file):

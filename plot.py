@@ -63,7 +63,7 @@ def plot_summary(filename):
         ax2.bar(np.arange(4), acc_5, 0.3, label="TR1-5")
         ax2.bar(np.arange(4) + 0.3, acc_2, 0.3, label="TR34")
         ax2.set_title("accuracy")
-        ax1.set_ylim(bottom=0, top=1)
+        ax2.set_ylim(bottom=0, top=1)
         # plt.bar(group_names, train_5, 0.2, bottom=processing_5, label="training time TR1-5")
         # plt.bar(group_names, data_size, mem_used_2, color='g', linewidth=1, linestyle=":", label="memory used TR34")
         # plt.bar(group_names, processing_2, 0.2, label="processing time TR34")

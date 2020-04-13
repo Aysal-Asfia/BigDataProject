@@ -151,6 +151,8 @@ _<div align="center">Figure 3. Memory used and disk throughput.</div>_
 As is shown in the figure, data was only read from disk during data processing phase and there was no disk read/write during training phase. 
 This can be explained as when the data size is small enough to fit in memory, there was no need to swap data to disk.
 
+(Memory profiling results of other subjects are available in [result](/result) folder.)
+
 
 ## **IV. Discussion and future work**
 
