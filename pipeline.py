@@ -59,7 +59,7 @@ def run(subject, steps):
     return subject, steps, f1, acc
 
 
-tasks = [(4, 5), (4, 2), (3, 5), (3, 2), (2, 5), (2, 2), (1, 5), (1, 2)]
+tasks = [(1, 5), (1, 2), (2, 5), (2, 2), (3, 5), (3, 2), (4, 5), (4, 2)]
 result = []
 for task in tasks:
     result.append(run(task[0], task[1]))
